@@ -8,7 +8,8 @@ fs.readFile('ProjectSourceCode\\BostonAudit.html', 'utf8', (err, data) => {
   }
   let line = ""
   let lineNo = 1
-  let flag = false;
+  let leftRows = 5;
+  const usefullRows = ["", "", "", ""];
   for (let i = 0; i < data.length; i++) {
     if (data[i] !== "\n") {
         line = line + data[i];
@@ -20,9 +21,22 @@ fs.readFile('ProjectSourceCode\\BostonAudit.html', 'utf8', (err, data) => {
         console.log(line);
     }
     if (line === '											<tbody><tr class="takenCourse ">') {
-      console.log("sdf");        
-      console.log(line);
-      flag = true;
+      leftRows = 4;
+  }
+  if (leftRows < 5) {
+    usefullRows[4-leftRows] = line
+    leftRows = leftRows - 1;
+
+    if(leftRows === 0) {
+      leftRows = 5;
+      console.log("Usey")
+      console.log(usefullRows)
+      usefullRows[0] = "";
+      usefullRows[1] = "";
+      usefullRows[2] = "";
+      usefullRows[3] = "";
+    }
+
   }
     lineNo = lineNo  + 1;
         line = "";
