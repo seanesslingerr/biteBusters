@@ -31,6 +31,10 @@ fs.readFile('ProjectSourceCode\\BostonAudit.html', 'utf8', (err, data) => {
 
       //console.log("found");
       console.log(usefullRows[0].slice(54,58));
+      console.log(usefullRows[1].slice(58,66));
+      console.log(usefullRows[2].slice(59,62));
+      console.log(usefullRows[3].slice(56,57));
+      console.log("");
 
       usefullRows[0] = "";
       usefullRows[1] = "";
