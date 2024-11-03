@@ -20,17 +20,18 @@ fs.readFile('ProjectSourceCode\\BostonAudit.html', 'utf8', (err, data) => {
         console.log("on");        
         console.log(line);
     }
-    if (line === '											<tbody><tr class="takenCourse ">') {
-      leftRows = 4;
-  }
+
   if (leftRows < 5) {
     usefullRows[4-leftRows] = line
     leftRows = leftRows - 1;
 
     if(leftRows === 0) {
       leftRows = 5;
-      console.log("Usey")
-      console.log(usefullRows)
+      //console.log(usefullRows[0]);
+
+      //console.log("found");
+      console.log(usefullRows[0].slice(54,58));
+
       usefullRows[0] = "";
       usefullRows[1] = "";
       usefullRows[2] = "";
@@ -38,6 +39,9 @@ fs.readFile('ProjectSourceCode\\BostonAudit.html', 'utf8', (err, data) => {
     }
 
   }
+  if (line === '											<tbody><tr class="takenCourse ">') {
+    leftRows = 4;
+}
     lineNo = lineNo  + 1;
         line = "";
     }
