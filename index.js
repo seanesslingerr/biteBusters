@@ -20,13 +20,8 @@ app.use(express.static('public'));
 // create `ExpressHandlebars` instance and configure the layouts and partials dir.
 const hbs = handlebars.create({
   extname: 'hbs',
-<<<<<<< HEAD
   layoutsDir: __dirname + '/ProjectSourceCode/views/layouts',
   partialsDir: __dirname + '/ProjectSourceCode/views/partials',
-=======
-  layoutsDir: __dirname + '/src/views/layouts',
-  partialsDir: __dirname + '/src/views/partials',
->>>>>>> dabfe482c9ce6ac60b5ae8fef5d46947307a0a1e
 });
 
 console.log(__dirname, path.join(__dirname, 'src', 'views'));
@@ -61,11 +56,7 @@ db.connect()
 // Register `hbs` as our view engine using its bound `engine()` function.
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
-<<<<<<< HEAD
 app.set('views', path.join(__dirname, 'ProjectSourceCode/views'));
-=======
-// app.set('views', path.join(__dirname, 'views'));
->>>>>>> dabfe482c9ce6ac60b5ae8fef5d46947307a0a1e
 app.use(bodyParser.json()); // specify the usage of JSON for parsing request body.
 
 // initialize session variables
