@@ -1,23 +1,38 @@
-<form action="/login" method="POST" class="w-50 mx-auto mt-5">
+<form action="/register" method="POST" class="w-50 mx-auto mt-5">
+
+<div class ="title">
+  <p>
+    WELCOME TO BUFF BUSTERS
+  </p>
+  <p1>
+    Buff Buster is the degree audit simplifer. This website will help give you a comprehensive view of youre degree audit including: classes you have taken, how far
+    you are through your degree, and possible classes you can take given your current status. Please log in using your identikey!
+  </p1>
+  <style>
+    p{
+      color:gold;
+      font-size: x-large;
+      font-weight: 300;
+      text-align: center;
+    }
+    p1{
+      color:white;
+      font-size: medium;
+      font-weight: 100;
+      text-align: center;
+    }
+  </style>
+</div>
+
   <div class="form-group mb-3">
     <label for="username">Username</label>
-    <!-- Input field for username -->
     <input type="text" class="form-control" id="username" name="username" required>
   </div>
 
   <div class="form-group mb-3">
     <label for="password">Password</label>
-    <!-- Input field for password -->
     <input type="password" class="form-control" id="password" name="password" required>
   </div>
 
-  <button type="submit" class="btn btn-primary">Login</button>
-
-  <!-- Optional: Text to redirect unregistered users to registration page -->
-  <p class="mt-3">
-    Don't have an account? <a href="/register">Register here</a>.
-  </p>
-
-  <!-- Include the message partial to display any messages (like login errors) -->
-  {{> message}}
+  <button type="submit" class="btn btn-primary">Register</button>
 </form>
