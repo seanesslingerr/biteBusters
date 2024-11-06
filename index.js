@@ -11,6 +11,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session'); // To set the session object. To store or access session data, use the `req.session`, which is (generally) serialized as JSON by the store.
 const bcrypt = require('bcryptjs'); //  To hash passwords
 const axios = require('axios'); // To make HTTP requests from our server. We'll learn more about it in Part C.
+app.use(express.static('public')); 
 
 // *****************************************************
 // <!-- Section 2 : Connect to DB -->
@@ -22,6 +23,10 @@ const hbs = handlebars.create({
   layoutsDir: __dirname + '/ProjectSourceCode/views/layouts',
   partialsDir: __dirname + '/ProjectSourceCode/views/partials',
 });
+
+console.log(__dirname, path.join(__dirname, 'src', 'views'));
+app.set('views', path.join(__dirname, 'src', 'views')); 
+app.use(express.static(path.join(__dirname, 'resources')));
 
 // database configuration
 const dbConfig = {
