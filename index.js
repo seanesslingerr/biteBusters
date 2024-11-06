@@ -19,8 +19,8 @@ const axios = require('axios'); // To make HTTP requests from our server. We'll 
 // create `ExpressHandlebars` instance and configure the layouts and partials dir.
 const hbs = handlebars.create({
   extname: 'hbs',
-  layoutsDir: __dirname + '/views/layouts',
-  partialsDir: __dirname + '/views/partials',
+  layoutsDir: __dirname + '/ProjectSourceCode/views/layouts',
+  partialsDir: __dirname + '/ProjectSourceCode/views/partials',
 });
 
 // database configuration
@@ -51,7 +51,7 @@ db.connect()
 // Register `hbs` as our view engine using its bound `engine()` function.
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'ProjectSourceCode/views'));
 app.use(bodyParser.json()); // specify the usage of JSON for parsing request body.
 
 // initialize session variables
@@ -72,7 +72,7 @@ app.use(
 //API ROUTES
 
 app.get('/', (req, res) =>{
-    res.redirect('/home');
+    res.redirect('/login');
 });
 
 app.get('/home', (req, res) =>{
@@ -84,7 +84,7 @@ app.get('/login', (req, res) =>{
 });
 
 app.get('/register', (req, res) =>{
-    res.render('page/register');
+    res.render('pages/register');
 });
 
 app.get('/stats', (req, res) =>{
