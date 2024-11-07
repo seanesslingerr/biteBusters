@@ -1,0 +1,21 @@
+Meeting notes 
+
+
+Update release notes for what needs to be done this week 
+2 objectives for the week (2 actions)
+Need 2 story points 
+Decided on committing on our own separate branches 
+Reminding ourselves that we need to push 
+Practice propper practice (need to get local host running so we can get it working on docker)
+Boston talked about how he got the scraper for the html degree audit 
+We will have users download and upload their own degree audit in order to get a better look at everything. 
+Registration with new account: consider making a page after registration that shows all the created aspects of the account (identikey, email, etc) Adding in transfer credits 
+Fill in Gen Ed here area in Stats page 
+Tiny pool of recommended gen eds 
+
+
+Frontend goals for next week:
+
+Fully finish login and logout design 
+Start working on home and stats page 
+
