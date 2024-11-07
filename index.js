@@ -96,6 +96,10 @@ app.get('/stats', (req, res) =>{
     res.render('pages/stats');
 })
 
+app.get('/logout', (req, res) =>{
+  res.render('pages/logout');
+});
+
 app.post('/register', (req, res) =>{
     //register page takes input of first name and last name
 
