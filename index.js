@@ -19,9 +19,9 @@ app.use(express.static('public'));
 
 // create `ExpressHandlebars` instance and configure the layouts and partials dir.
 const hbs = handlebars.create({
-extname: 'hbs',
-layoutsDir: __dirname + '/ProjectSourceCode/views/layouts',
-partialsDir: __dirname + '/ProjectSourceCode/views/partials',
+  extname: 'hbs',
+  layoutsDir: __dirname + '/ProjectSourceCode/views/layouts',
+  partialsDir: __dirname + '/ProjectSourceCode/views/partials',
 });
 
 console.log(__dirname, path.join(__dirname, 'src', 'views'));
@@ -77,7 +77,7 @@ extended: true,
 //API ROUTES
 
 app.get('/', (req, res) =>{
-res.redirect('/login');
+    res.redirect('/login');
 });
 
 app.get('/home', (req, res) =>{
@@ -89,12 +89,16 @@ res.render('pages/login');
 });
 
 app.get('/register', (req, res) =>{
-res.render('pages/register');
+    res.render('pages/register');
 });
 
 app.get('/stats', (req, res) =>{
 res.render('pages/stats');
 })
+
+app.get('/logout', (req, res) =>{
+  res.render('pages/logout');
+});
 
 app.post('/register', (req, res) =>{
 //register page takes input of first name and last name
