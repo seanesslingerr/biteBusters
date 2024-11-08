@@ -21,7 +21,7 @@ services:
       - '3000:3000'
     volumes:
       - ./:/home/node/biteBusters
-    command: 'npm start'
+    command: 'npm run testandrun'
 
 volumes:
   biteBusters:
