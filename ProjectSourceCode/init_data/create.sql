@@ -6,7 +6,7 @@ CREATE TABLE users(
 
 CREATE TABLE classes(
     class_code VARCHAR(9) PRIMARY KEY,
-    Name CHAR(60) NOT NULL,
+    name CHAR(60) NOT NULL,
     description VARCHAR(500)
 );
 
@@ -17,6 +17,12 @@ CREATE TABLE users_to_classes(
     semester VARCHAR(4),
     FOREIGN KEY (username) REFERENCES users (username) ON DELETE CASCADE,
     FOREIGN KEY (class_code) REFERENCES classes (class_code) ON DELETE CASCADE
+);
+
+CREATE TABLE majors(
+    major VARCHAR(50) PRIMARY KEY,
+    name CHAR(60) NOT NULL,
+    description VARCHAR(500)
 );
 
 CREATE TABLE major_to_classes(
