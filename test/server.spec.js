@@ -32,4 +32,50 @@ describe('Server!', () => {
 // ********************************************************************************
 
 
+//test 1 register
+describe('Testing Register API1', () => {
+  it('positive : /register', done => {
+    chai
+      .request(server)
+      .post('/register')
+      .send({
+        username: 'johndoe',
+        email: 'johndoe@example.com',
+        password: 'securepassword123'
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        // expect(res.body.message).to.equals('User registered successfully');
+        // res.should.redirectTo(/login$/);
+        done();
+      });
+  });
+});
+ 
 
+
+//test 2 register
+
+describe('Testing Register API2', () => {
+  // Positive test case
+  it('positive : /register', done => {
+    // Refer to the positive test case above.
+  });
+
+  it('negative : /register with invalid email', done => {
+    chai
+      .request(server)
+      .post('/register')
+      .send({
+        username: 'johndoe',
+        email: 'invalid-email', // invalid email format
+        password: 'securepassword123'
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        //expect(res.body.message).to.equals('Invalid input');
+        done();
+      });
+  });
+
+});

@@ -1,23 +1,112 @@
-  <div class="container mt-4">
-  <div class="row">
-    {{#if results.length}}
-      {{#each results}}
-      <div class="col-md-4 mb-4">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buff Busters Home Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f2f2f2;
+    }
+    .card-header {
+      background-color: #444;
+      color: #fff;
+    }
+    .card {
+      border: none;
+      margin-bottom: 20px;
+    }
+    .schedule-card {
+      background-color: #f2f2f2;
+      border: 1px solid #ddd;
+    }
+    .time-slot {
+      background-color: #e3d5b6;
+      padding: 5px;
+      border-radius: 3px;
+      font-size: 0.85rem;
+      margin-bottom: 5px;
+    }
+    .btn-custom {
+      background-color: #c8aa6e;
+      color: #fff;
+      border: none;
+    }
+    .btn-custom:hover {
+      background-color: #b3985e;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="row mt-4">
+      <!-- Holds & To-Dos Section -->
+      <div class="col-md-4">
         <div class="card">
-          <img src="{{#if this.image}} {{this.image}} {{else}} /path/to/default-image.jpg {{/if}}" class="card-img-top" alt="{{this.name}}">
+          <div class="card-header">Holds & To-Do's</div>
           <div class="card-body">
-            <h5 class="card-title">{{this.name}}</h5>
-            <p class="card-text">Date: {{this.dates.start.localDate}}</p>
-            <p class="card-text">Time: {{this.dates.start.localTime}}</p>
-            <a href="{{this.booking_url}}" class="btn btn-primary" target="_blank">Book Now</a>
+            <p>0 Holds</p>
+            <p>0 To-Do's</p>
+          </div>
+        </div>
+        
+        <!-- Your Classes Section -->
+        <div class="card">
+          <div class="card-header">Your Classes</div>
+          <div class="card-body">
+            <p>(Lecture)</p>
+            <p>(Lecture)</p>
+            <p>(Lecture)</p>
+            <p>(Lecture)</p>
+            <p>(Lecture)</p>
           </div>
         </div>
       </div>
-      {{/each}}
-    {{else}}
-      <div class="col-12">
-        <p>No events found. Please try again later.</p>
+
+      <!-- Buff Portal Survey Section -->
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header bg-primary text-white"></div>
+          <div class="card-body">
+            <p>Let us know what you think about Buff Portal and enter to win one of five $30 Amazon gift cards.</p>
+            <button class="btn btn-custom">Take the Survey</button>
+          </div>
+        </div>
+        
+        <!-- CU Boulder Email Section -->
+        <div class="card">
+          <div class="card-header">CU Boulder Email</div>
+          <div class="card-body">
+            <p>Your CU Boulder mailhome is: Exchange</p>
+            <p>Log in with ______ and your IdentiKey password.</p>
+            <button class="btn btn-custom">Log In to Exchange</button>
+          </div>
+        </div>
       </div>
-    {{/if}}
+
+      <!-- Class Schedule Section -->
+      <div class="col-md-4">
+        <div class="card schedule-card">
+          <div class="card-header">Class Schedule</div>
+          <div class="card-body">
+            <div class="text-center mb-3">
+              <button class="btn btn-sm btn-custom">Day</button>
+              <button class="btn btn-sm btn-custom">5-Day</button>
+              <button class="btn btn-sm btn-custom">List</button>
+            </div>
+            <div class="time-slot"></div>
+            <div class="time-slot"></div>
+            <div class="time-slot"></div>
+            <div class="time-slot"></div>
+            <div class="time-slot"></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
