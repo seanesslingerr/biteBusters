@@ -34,4 +34,8 @@ VALUES
   ('CSCI4378', 3, 'Multidisciplinary Design Project 2', 'none').
   ('CSCI4950', 4, 'Senior Thesis', 'none'),
   ('CSCI3100', 1, 'Software and Society', 'none')
-  ;
+
+  ('APPM1350', 4, 'Calculus 1 for Engineers', 'none'),
+  ('APPM1360', 4, 'Calculus 2 for Engineers', 'none'),
+  ('CSCI2824', 3, 'Discrete Structures', 'none'),
+  ('CSCI2820', 3, 'Linear Algebra with CS Applications', 'none');
