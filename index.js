@@ -77,23 +77,23 @@ extended: true,
 //API ROUTES
 
 app.get('/', (req, res) =>{
-    res.redirect('/login');
+  res.redirect('/login');
 });
 
 app.get('/home', (req, res) =>{
-res.render('pages/home');
+  res.render('pages/home');
 });
 
 app.get('/login', (req, res) =>{
-res.render('pages/login');
+  res.render('pages/login');
 });
 
 app.get('/register', (req, res) =>{
-    res.render('pages/register');
+  res.render('pages/register');
 });
 
 app.get('/stats', (req, res) =>{
-res.render('pages/stats');
+  res.render('pages/stats');
 })
 
 app.get('/logout', (req, res) =>{
@@ -118,26 +118,40 @@ app.post('/login', async (req, res) => {
 
 //takes in an identikey
 //if it exists passes through
-
-//checks if password matches password\
-//if it exists then redirect to the stats (or home) page)
-
-//if incorrect password, stay on login page but provide response
-
-//if incorrect identitikey, direct to register page
   const { username, password } = req.body;
   console.log('Received login form data:', username, password);
   try {
-      const user = await db.oneOrNone('SELECT username, password FROM users WHERE username = $1', [username]);
-      if(user){
+    const user = await db.oneOrNone('SELECT username, password FROM users WHERE username = $1', [username]);
+    if(user){
+      //checks if password matches password
+      //if it exists then redirect to the stats (or home) page)
+      console.log('Username is available:', username);
+      const match = await bcrypt.compare(password, user.password);
+      if(match){
+        console.log('Logged in');
+        req.session.user = user;
 
+        req.session.save((err) => {
+          if (err) {
+            console.log('Session save error:', err);
+            return res.redirect('/login');
+          }
+          res.redirect('/stats');
+        });
       }
-      else {
+      else{
+        //if incorrect password, stay on login page but provide response
+          console.log('Incorrect password');
+          res.redirect('/login');
+        }
+      }
+//if incorrect identitikey, direct to register page
+    else {
         console.log('No account found');
         res.redirect('/register');
       }
-  } catch{
-    
+  }catch{
+
   }
 });
 
