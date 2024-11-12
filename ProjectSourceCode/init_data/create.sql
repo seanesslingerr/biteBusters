@@ -6,6 +6,7 @@ CREATE TABLE users(
 
 CREATE TABLE classes(
     class_code VARCHAR(9) PRIMARY KEY,
+    credit_hours INTEGER,
     name CHAR(60) NOT NULL,
     description VARCHAR(500)
 );

@@ -92,12 +92,34 @@ app.get('/register', (req, res) =>{
   res.render('pages/register');
 });
 
-app.get('/stats', (req, res) =>{
-  res.render('pages/stats');
-})
+const auth = (req, res, next) => {
+  if (!req.session.user) {
+    return res.redirect('/login');
+  }
+  next();
+};
+
+app.use('/stats', auth);
+
+app.get('/stats', async (req, res) => {
+    res.render('pages/stats');
+});
 
 app.get('/logout', (req, res) =>{
   res.render('pages/logout');
+  if (req.session) {
+    req.session.destroy((err) => {
+      if (err) {
+        console.log('Error destroying session:', err);
+        res.status(500).send('Error logging out');
+    ``} else {
+        console.log('Session destroyed, user logged out');
+        res.render('pages/logout');
+      }
+    });
+  } else {
+    res.redirect('pages/login');
+  }
 });
 
 app.post('/register', async (req, res) =>{
@@ -135,13 +157,12 @@ app.post('/register', async (req, res) =>{
   
     //creates an account, and sends the page a response of identikey and email (which is just identikey + colorado.edu)
   //and the password
-    res.redirect('/stats');
+    res.redirect('/login');
       
     } catch (error) {
       console.error('Error during registration:', error);
       res.redirect('/register'); // In case of an error, redirect back to register
     }
-
 });
 
 app.post('/login', async (req, res) => {
