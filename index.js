@@ -80,6 +80,9 @@ app.get('/', (req, res) =>{
   res.redirect('/login');
 });
 
+
+app.use('/home', auth);
+
 app.get('/home', (req, res) =>{
   res.render('pages/home');
 });
@@ -91,7 +94,6 @@ app.get('/login', (req, res) =>{
 app.get('/register', (req, res) =>{
   res.render('pages/register');
 });
-
 
 const auth = (req, res, next) => {
   if (!req.session.user) {
@@ -151,14 +153,15 @@ app.post('/register', async (req, res) =>{
     console.log('Hashed password:', hpassword);
   
     // Insert the new user into the database
+    const email = username + '@colorado.edu'
     const newUser = await db.any(
-        'INSERT INTO users(username, password) VALUES($1, $2) returning *', 
-        [username, hpassword]);
+        'INSERT INTO users(username, email, password) VALUES($1, $2, $3) returning *', 
+        [username, email, hpassword]);
     console.log('New user created:', newUser);
   
     //creates an account, and sends the page a response of identikey and email (which is just identikey + colorado.edu)
   //and the password
-    res.redirect('/login');
+    res.render('pages/registrationInfo', {username, email, password});
       
     } catch (error) {
       console.error('Error during registration:', error);
@@ -187,7 +190,7 @@ app.post('/login', async (req, res) => {
             console.log('Session save error:', err);
             return res.redirect('/login');
           }
-          res.redirect('/stats');
+          res.redirect('/home');
         });
       }
       else{

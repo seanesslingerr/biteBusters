@@ -1,7 +1,7 @@
 INSERT INTO users
-  (username, password)
+  (username, email, password)
 VALUES
-  ('test', '1234');
+  ('test1234', 'test1234@colorado.edu', '1234');
 
 INSERT INTO classes
   (class_code, credit_hours, name, description)
