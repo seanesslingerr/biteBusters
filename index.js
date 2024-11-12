@@ -114,7 +114,8 @@ app.post('/register', (req, res) =>{
 
 });
 
-app.post('/login', (req, res) =>{
+app.post('/login', async (req, res) => {
+
 //takes in an identikey
 //if it exists passes through
 
@@ -123,7 +124,21 @@ app.post('/login', (req, res) =>{
 
 //if incorrect password, stay on login page but provide response
 
-//if incorrect identitikey, 
+//if incorrect identitikey, direct to register page
+  const { username, password } = req.body;
+  console.log('Received login form data:', username, password);
+  try {
+      const user = await db.oneOrNone('SELECT username, password FROM users WHERE username = $1', [username]);
+      if(user){
+
+      }
+      else {
+        console.log('No account found');
+        res.redirect('/register');
+      }
+  } catch{
+    
+  }
 });
 
 //Server Testing
