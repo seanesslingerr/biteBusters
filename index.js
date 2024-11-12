@@ -92,6 +92,7 @@ app.get('/register', (req, res) =>{
   res.render('pages/register');
 });
 
+
 const auth = (req, res, next) => {
   if (!req.session.user) {
     return res.redirect('/login');
@@ -203,6 +204,7 @@ app.post('/login', async (req, res) => {
   }catch{
 
   }
+
 });
 
 //Server Testing
