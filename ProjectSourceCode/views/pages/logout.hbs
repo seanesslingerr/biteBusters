@@ -1,53 +1,60 @@
 <!-- Navigation Bar for logout-->
-
-    <form action="/logout" method="GET">
-
-  <!-- Navigation Bar for logout -->
-
-  
-
+<form action="/logout" method="GET">
   <!-- Image and Description -->
-<div class="container mt-5">
-  <div class="row">
-    <div class="col-md-4">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_0m1ycaWDMUhY0dJ1zpSio7wI0axPJqyBdQ&s" class="img-fluid rounded" alt="CU Buff Logo" id="self-image">
-    </div>
-    <div class="col-md-8 d-flex flex-column justify-content-center">
-      <p id="self-desc">Photo of CU Buff logo</p>
-      <a href="resume.html" class="btn btn-primary">View My Resume</a>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-4">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_0m1ycaWDMUhY0dJ1zpSio7wI0axPJqyBdQ&s" class="img-fluid rounded" alt="CU Buff Logo" id="self-image">
+      </div>
+      <div class="col-md-8 d-flex flex-column justify-content-center">
+        <p id="self-desc">Photo of CU Buff logo</p>
+        <a href="resume.html" class="btn btn-primary">View My Resume</a>
+      </div>
     </div>
   </div>
-</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
-</html>
-
-  <h1>You have logged out sucessfully. Thank you for using our degree audit!</h1>
+  <h1>You have logged out successfully. Thank you for using our degree audit!</h1>
 
   <style>
-    h1{
-      color:gold;
+    h1 {
+      color: gold;
       text-align: center;
     }
-      #navbar a.navbar-brand, #navbar a.nav-link {
+    #navbar a.navbar-brand, #navbar a.nav-link {
       color: white;
+    }
+    .resource-container {
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      margin: 40px auto;
+    }
+    .resource-container p {
+      font-weight: bold;
+      text-align: center;
+    }
+    .resource-container ul {
+      list-style-type: none;
+      padding: 0;
+      text-align: center;
+    }
+    .resource-container ul li {
+      margin: 10px 0;
     }
   </style>
 </form>
 
-<!-- Footer - has different kinds of recources to help academically -->
-<footer class="footer has-background-light">
-  <div class="content has-text-centered">
-    <p>
-      <strong>Links to helpful school resources</strong>
-    </p>
-    <ul style="list-style-type: none; padding: 0;">
-      
-      <li><a href="https://www.colorado.edu/engineering-advising/academiccoaching" target="_blank">Academic Coaching Services</a></li>
-      <li><a href="https://www.colorado.edu/resources/college-engineering-applied-science-advising" target="_blank">College of Engineering and Applied Sciences Advising</a></li>
-      <li><a href="https://www.colorado.edu/resources/academic-success-achievement-program-asap" target="_blank">ASAP Tutoring</a></li>
-      <li><a href="https://www.colorado.edu/engineering-advising/resources-support/academic-support-tutoring/engineering-connections-academic-success-support" target="_blank">Engineering Connections Academic Success Support Services</a></li>
-    </ul>
-  </div>
-</footer>
+<!-- Helpful School Resources Section -->
+<div class="resource-container">
+  <p>Links to helpful school resources</p>
+  <ul>
+    <li><a href="https://www.colorado.edu/engineering-advising/academiccoaching" target="_blank">Academic Coaching Services</a></li>
+    <li><a href="https://www.colorado.edu/resources/college-engineering-applied-science-advising" target="_blank">College of Engineering and Applied Sciences Advising</a></li>
+    <li><a href="https://www.colorado.edu/resources/academic-success-achievement-program-asap" target="_blank">ASAP Tutoring</a></li>
+    <li><a href="https://www.colorado.edu/engineering-advising/resources-support/academic-support-tutoring/engineering-connections-academic-success-support" target="_blank">Engineering Connections Academic Success Support Services</a></li>
+  </ul>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
