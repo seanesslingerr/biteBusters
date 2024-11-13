@@ -1,50 +1,83 @@
-<!-- Navigation Bar for logout-->
+<!DOCTYPE html>
+<html>
+<title>Progress Bar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+/* Additional styling for a gold and black theme */
+.w3-container {
+  max-width: 400px;
+  margin: auto;
+}
 
-    <form action="/logout" method="GET">
+.w3-light-grey {
+  background-color: #333;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
 
-  <!-- Navigation Bar for logout -->
+#myBar {
+  background: linear-gradient(90deg, #ffd700, #ffb800);
+  color: #333;
+  font-weight: bold;
+  border-radius: 10px;
+  text-align: center;
+  padding: 8px 0;
+}
 
-  
+.w3-button {
+  background-color: #ffd700;
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s;
+}
 
-  <!-- Image and Description -->
-<div class="container mt-5">
-  <div class="row">
-    <div class="col-md-4">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_0m1ycaWDMUhY0dJ1zpSio7wI0axPJqyBdQ&s" class="img-fluid rounded" alt="CU Buff Logo" id="self-image">
-    </div>
-    <div class="col-md-8 d-flex flex-column justify-content-center">
-      <p id="self-desc">Photo of CU Buff logo</p>
-      <a href="resume.html" class="btn btn-primary">View My Resume</a>
-    </div>
+.w3-button:hover {
+  background-color: #ffb800;
+}
+</style>
+
+<body>
+<div class="w3-container">
+  <p>Progress Toward Completing Classes:</p>
+  <div class="w3-light-grey">
+    <div id="myBar" style="width:20%">20%</div>
   </div>
+  <br>
+  <button class="w3-button" onclick="completeClass()">Hit this button when you have finished a class to update progress</button>
 </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
-</html>
+<script>
+// Initialize progress
+let progress = 20;
+const increment = 10;  // Right now I am just having it so that every time you click the class button the 
+//progress increases by 10, but this is only temporary
 
-  <h1>You have logged out sucessfully. Thank you for using our degree audit!</h1>
+function completeClass() {
+  const elem = document.getElementById("myBar");
 
-  <style>
-    h1{
-      color:gold;
-      text-align: center;
+  // this is a check to make sure the progress is under 100 
+  if (progress < 100) {
+    progress += increment;
+    // This checks to make sure the progress bar does not go over 100 
+    if (progress > 100) progress = 100;
+
+    // Updating progress bar accordingly 
+    elem.style.width = progress + '%';
+    elem.innerHTML = progress + '%';
+
+    // This is just giving an alert whenenver we have reached 100 percent
+    //will probably get rid of this later as this is fill in code 
+    if (progress === 100) {
+      alert("Congratulations! You have completed all classes needed to graduate!");
     }
-  </style>
-</form>
+  }
+}
+</script>
 
-<!-- Footer - has different kinds of recources to help academically -->
-<footer class="footer has-background-light">
-  <div class="content has-text-centered">
-    <p>
-      <strong>Links to helpful school resources</strong>
-    </p>
-    <ul style="list-style-type: none; padding: 0;">
-      
-      <li><a href="https://www.colorado.edu/engineering-advising/academiccoaching" target="_blank">Academic Coaching Services</a></li>
-      <li><a href="https://www.colorado.edu/resources/college-engineering-applied-science-advising" target="_blank">College of Engineering and Applied Sciences Advising</a></li>
-      <li><a href="https://www.colorado.edu/resources/academic-success-achievement-program-asap" target="_blank">ASAP Tutoring</a></li>
-      <li><a href="https://www.colorado.edu/engineering-advising/resources-support/academic-support-tutoring/engineering-connections-academic-success-support" target="_blank">Engineering Connections Academic Success Support Services</a></li>
-    </ul>
-  </div>
-</footer>
+</body>
+</html>

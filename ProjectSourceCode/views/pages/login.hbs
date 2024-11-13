@@ -1,77 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
-    <form action="/register" method="POST" class="w-50 mx-auto mt-5"></form>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cu Boulder Degree Audit Login Page </title>
+    <title>CU Boulder Degree Audit Login Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-  </head>
+    <style>
+        /* Background styling */
+        body {
+            background-image: url('https://st5.depositphotos.com/47307674/74343/i/450/depositphotos_743438728-stock-photo-luxury-gold-abstract-background.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            color: #333;
+        }
 
-      
-  <!-- Image and Description -->
-<div class="container mt-5">
-  <div class="row">
-    <div class="col-md-4">
-      <img src="https://149787914.v2.pressablecdn.com/wp-content/uploads/University-of-Colorado-Boulder-Logo.png.webp" class="img-fluid rounded" alt="CU Buff Logo" id="self-image">
+        /* Centered container with padding */
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+
+        /* Welcome text styling */
+        .welcome-text {
+            color: #ffcb05;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        /* Description styling */
+        .description {
+            font-size: 1.1rem;
+            color: #333;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        /* Custom button styling */
+        .btn-gold {
+            background-color: #ffcb05;
+            color: black;
+            border: none;
+            margin-top: 1rem;
+        }
+
+        .btn-gold:hover {
+            background-color: #e6b800;
+            color: white;
+        }
+
+        /* Footer styling */
+        .footer {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 1rem;
+            margin-top: 2rem;
+            border-radius: 8px;
+        }
+
+        .footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Main container -->
+<div class="container shadow-lg p-4">
+    <!-- Image and heading -->
+    <div class="text-center mb-4">
+        <img src="https://149787914.v2.pressablecdn.com/wp-content/uploads/University-of-Colorado-Boulder-Logo.png.webp"
+             alt="CU Buff Logo" class="img-fluid rounded mb-2" style="max-width: 150px;">
+        <h2 class="welcome-text">Welcome to Buff Busters</h2>
     </div>
-    <div class="col-md-8 d-flex flex-column justify-content-center">
-      <p id="self-desc"></p>
-      <a href="resume.html" class="btn btn-primary" style="background-color: gold;" style="color: black;">View My Resume</a>
-    </div>
-  </div>
-</div>
 
-  <p>
-    WELCOME TO BUFF BUSTERS
-  </p>
-  <p1>
-    Buff Buster is the degree audit simplifer. This website will help give you a comprehensive view of youre degree audit including: classes you have taken, how far
-    you are through your degree, and possible classes you can take given your current status. Please log in using your identikey!
-  </p1>
-  <style>
-    p{
-      color:gold;
-      font-size: x-large;
-      font-weight: 300;
-      text-align: center;
-    }
-    p1{
-      color:black;
-      font-size: medium;
-      font-weight: 100;
-      text-align: center;
-    }
-  </style>
-</div>
-
-  <div class="form-group mb-3">
-    <label for="username">Username</label>
-    <input type="text" class="form-control" id="username" name="username" required>
-  </div>
-
-  <div class="form-group mb-3">
-    <label for="password">Password</label>
-    <input type="password" class="form-control" id="password" name="password" required>
-  </div>
-
-  <button type="submit" class="btn btn-primary" style="background-color:rgba(255, 217, 0, 0.712)"><a class="nav-link" href="/register">Register</a>
-  </button>
-
-</form>
-
-<!-- Footer - has different kinds of recources to help academically -->
-<footer class="footer has-background-light">
-  <div class="content has-text-centered">
-    <p>
-      <strong>Links to helpful school resources</strong>
+    <!-- Description -->
+    <p class="description">
+        Buff Buster is the degree audit simplifier. This website provides a comprehensive view of your degree audit, including courses you've completed, your progress, and potential courses you can take. Please log in using your Identikey!
     </p>
-    <ul style="list-style-type: none; padding: 0;">
-      
-      <li><a href="https://www.colorado.edu/engineering-advising/academiccoaching" target="_blank">Academic Coaching Services</a></li>
-      <li><a href="https://www.colorado.edu/resources/college-engineering-applied-science-advising" target="_blank">College of Engineering and Applied Sciences Advising</a></li>
-      <li><a href="https://www.colorado.edu/resources/academic-success-achievement-program-asap" target="_blank">ASAP Tutoring</a></li>
-      <li><a href="https://www.colorado.edu/engineering-advising/resources-support/academic-support-tutoring/engineering-connections-academic-success-support" target="_blank">Engineering Connections Academic Success Support Services</a></li>
+
+    <!-- Login form -->
+    <form action="/register" method="POST" class="mx-auto" style="max-width: 400px;">
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn btn-gold w-100">Login</button>
+    </form>
+
+    <!-- Additional Links -->
+    <div class="text-center mt-3">
+        <a href="resume.html" class="btn btn-outline-dark">View My Resume</a>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer mt-5 text-center">
+    <strong>Helpful School Resources:</strong>
+    <ul class="list-unstyled">
+        <li><a href="https://www.colorado.edu/engineering-advising/academiccoaching" target="_blank">Academic Coaching Services</a></li>
+        <li><a href="https://www.colorado.edu/resources/college-engineering-applied-science-advising" target="_blank">College of Engineering and Applied Sciences Advising</a></li>
+        <li><a href="https://www.colorado.edu/resources/academic-success-achievement-program-asap" target="_blank">ASAP Tutoring</a></li>
+        <li><a href="https://www.colorado.edu/engineering-advising/resources-support/academic-support-tutoring/engineering-connections-academic-success-support" target="_blank">Engineering Connections Academic Success Support Services</a></li>
     </ul>
-  </div>
 </footer>
+
+<!-- Bootstrap JS for components, if needed -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

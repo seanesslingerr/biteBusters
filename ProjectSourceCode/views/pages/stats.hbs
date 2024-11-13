@@ -1,38 +1,176 @@
-<form action="/register" method="POST" class="w-50 mx-auto mt-5">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Class Information Table</title>
+ <style>
+   /* styling of the body*/
+   body {
+     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     background-image: url('https://img.freepik.com/free-photo/abstract-luxury-light-cream-beige-brown-like-cotton-silk-texture-pattern-background_1258-63643.jpg?semt=ais_hybrid');
+     background-size: cover;
+     background-position: center;
+     color: #fff;
+     margin: 0;
+     padding: 40px;
+   }
 
-<div class ="title">
-  <p>
-    WELCOME TO BUFF BUSTERS
-  </p>
-  <p1>
-    Buff Buster is the degree audit simplifer. This website will help give you a comprehensive view of youre degree audit including: classes you have taken, how far
-    you are through your degree, and possible classes you can take given your current status. Please log in using your identikey!
-  </p1>
-  <style>
-    p{
-      color:gold;
-      font-size: x-large;
-      font-weight: 300;
-      text-align: center;
-    }
-    p1{
-      color:white;
-      font-size: medium;
-      font-weight: 100;
-      text-align: center;
-    }
-  </style>
-</div>
+   /* Styling for the Title */
+   .title {
+     text-align: center;
+     font-size: 42px;
+     font-weight: bold;
+     margin-bottom: 30px;
+     color: black; 
+     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /*this is basically so that the text has a shadow */
+   }
 
-  <div class="form-group mb-3">
-    <label for="username">Username</label>
-    <input type="text" class="form-control" id="username" name="username" required>
-  </div>
+   /* This is the styling for the table container. Got some from bootsrap */
+   .table-container {
+     background-color: rgba(0, 0, 0, 0.6);
+     padding: 20px;
+     border-radius: 10px;
+     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+     margin: 0 auto;
+     width: 80%;
+     overflow-x: auto; /* creates a scroll down bar for the table */
+   }
 
-  <div class="form-group mb-3">
-    <label for="password">Password</label>
-    <input type="password" class="form-control" id="password" name="password" required>
-  </div>
+   /* Table Styling */
+   .table {
+     width: 100%;
+     border-collapse: collapse;
+   }
 
-  <button type="submit" class="btn btn-primary">Register</button>
-</form>
+   /* Table Header Styling (border bottom from bootstrap)*/
+   .table thead {
+     background-color: #333;
+   }
+   .table thead th {
+     color: #f4c542;
+     padding: 15px;
+     font-size: 16px;
+     font-weight: bold;
+     text-align: left;
+     border-bottom: 2px solid #f4c542;
+   }
+
+   /* Table Body Styling */
+   .table tbody tr {
+     background-color: #444;
+     transition: background-color 0.3s;
+   }
+
+   .table tbody tr:nth-child(even) {
+     background-color: #555;
+   }
+
+   .table tbody td { /* This is basically giving a bit of spacing in between rows */
+     padding: 12px;
+     border-bottom: 1px solid #f4c542;
+     text-align: left;
+     font-size: 14px;
+   }
+
+   /* Making it so that the table shows up in a responseive matter (bootstrap dynamic table) */
+   @media (max-width: 768px) {
+     .table-container {
+       width: 100%;
+       padding: 10px;
+     }
+     .title {
+       font-size: 32px;
+     }
+     .table thead th, .table tbody td {
+       font-size: 14px;
+       padding: 8px;
+     }
+   }
+ </style>
+</head>
+<body>
+
+ <!-- Title Section -->
+ <div class="title">Stats for Computer Science Classes</div>
+
+ <!-- Table Container -->
+ <div class="table-container">
+   <!-- Table Section -->
+   <table class="table">
+     <thead>
+       <tr>
+         <th scope="col">Class</th>
+         <th scope="col">Completed</th>
+         <th scope="col">Grade in the Class</th>
+         <th scope="col">Prerequisites for the Class</th>
+       </tr>
+     </thead>
+     <tbody>
+      <!-- All of the rows for our table (may have to make this dynamic later) -->
+       <tr>
+         <td>Class #1</td>
+         <td>NA</td>
+         <td>NA</td>
+         <td>NA</td>
+       </tr>
+       <tr>
+         <td>Class #2</td>
+         <td>NA</td>
+         <td>NA</td>
+         <td>NA</td>
+       </tr>
+       <tr>
+         <td>Class #3</td>
+         <td>NA</td>
+         <td>NA</td>
+         <td>NA</td>
+       </tr>
+       <tr>
+         <td>Class #4</td>
+         <td>NA</td>
+         <td>NA</td>
+         <td>NA</td>
+       </tr>
+       <tr>
+         <td>Class #5</td>
+         <td>NA</td>
+         <td>NA</td>
+         <td>NA</td>
+       </tr>
+       <tr>
+         <td>Class #6</td>
+         <td>NA</td>
+         <td>NA</td>
+         <td>NA</td>
+       </tr>
+       <tr>
+         <td>Class #7</td>
+         <td>NA</td>
+         <td>NA</td>
+         <td>NA</td>
+       </tr>
+       <tr>
+         <td>Class #8</td>
+         <td>NA</td>
+         <td>NA</td>
+         <td>NA</td>
+       </tr>
+       <tr>
+         <td>Class #9</td>
+         <td>NA</td>
+         <td>NA</td>
+         <td>NA</td>
+       </tr>
+       <tr>
+         <td>Class #10</td>
+         <td>NA</td>
+         <td>NA</td>
+         <td>NA</td>
+       </tr>
+     </tbody>
+   </table>
+ </div>
+
+</body>
+</html>

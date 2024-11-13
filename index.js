@@ -100,7 +100,35 @@ app.get('/logout', (req, res) =>{
   res.render('pages/logout');
 });
 
-app.post('/register', (req, res) =>{
+// GET Register Route 
+app.get('/register', (req, res) => {
+    res.render('pages/register');
+  });
+  
+  
+  app.post('/register', async (req, res) => {
+    try {
+      const hash = await bcrypt.hash(req.body.password, 10);
+      const query = 'INSERT INTO users (username, password) VALUES ($1, $2)';
+      await db.none(query, [req.body.username, hash]);
+      res.redirect('/login');
+    } catch (error) {
+      console.error('Error inserting user:', error);
+      res.redirect('/register');
+    }
+  });
+  
+  const auth = (req, res, next) => {
+    if (!req.session.user) {
+      // Default to login page.
+      return res.redirect('/login');
+    }
+    next();
+  };
+  
+  app.use(auth);
+
+//app.post('/register', (req, res) =>{
 //register page takes input of first name and last name
 
 //takes input and adds 4 rng numbers
@@ -112,7 +140,7 @@ app.post('/register', (req, res) =>{
 //creates an account, and sends the page a response of identikey and email (which is just identikey + colorado.edu)
 //and the password
 
-});
+//});
 
 app.post('/login', (req, res) =>{
 //takes in an identikey
@@ -127,6 +155,14 @@ app.post('/login', (req, res) =>{
 });
 
 //Server Testing
-app.listen(3000, '0.0.0.0', () => {
-console.log('Server is running on port 3000');
+//app.listen(3000, '0.0.0.0', () => {
+//console.log('Server is running on port 3000');
+//});
+
+
+//Server Testing
+module.exports = app.listen(3000);
+
+app.get('/welcome', (req, res) => {
+  res.json({status: 'success', message: 'Welcome!'});
 });
