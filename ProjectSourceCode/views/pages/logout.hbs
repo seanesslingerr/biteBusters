@@ -63,13 +63,45 @@
 <!-- Helpful School Resources Section -->
 <div class="resource-container">
   <p>Links to helpful school resources</p>
-  <ul>
+  <ul class="resource-links">
     <li><a href="https://www.colorado.edu/engineering-advising/academiccoaching" target="_blank">Academic Coaching Services</a></li>
     <li><a href="https://www.colorado.edu/resources/college-engineering-applied-science-advising" target="_blank">College of Engineering and Applied Sciences Advising</a></li>
     <li><a href="https://www.colorado.edu/resources/academic-success-achievement-program-asap" target="_blank">ASAP Tutoring</a></li>
     <li><a href="https://www.colorado.edu/engineering-advising/resources-support/academic-support-tutoring/engineering-connections-academic-success-support" target="_blank">Engineering Connections Academic Success Support Services</a></li>
   </ul>
 </div>
+
+<!-- This is all of the styling for the helpful resources section -->
+
+<style> 
+ /* Styling for the Title text of container*/
+  .resource-container p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3em;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+   /* makes the resource links in the container look better*/
+  .resource-links a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: color 0.3s ease, transform 0.3s ease;
+    padding: 5px 0;
+    display: inline-block;
+  }
+
+   /* will hange color as you are hovering over text - will move it to the side*/
+  .resource-links a:hover {
+    color: #0056b3;
+    transform: translateX(5px);
+  }
+
+</style>
+
 
 <!-- Footer with CU Boulder Buff Busters -->
 <footer class="footer mt-5">
