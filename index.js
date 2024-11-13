@@ -126,6 +126,7 @@ app.get('/logout', (req, res) =>{
 });
 
 app.post('/register', async (req, res) =>{
+  console.log("Just clicked register")
 //register page takes input of first name and last name
   const { fN, lN, password} = req.body;
   console.log('Recieved data:', fN, lN, password);
@@ -170,10 +171,12 @@ app.post('/register', async (req, res) =>{
 });
 
 app.post('/login', async (req, res) => {
+  console.log("trying to log in!");
 //takes in an identikey
 //if it exists passes through
   const { username, password } = req.body;
   console.log('Received login form data:', username, password);
+  
   try {
     const user = await db.oneOrNone('SELECT * FROM users WHERE username = $1', [username]);
     if(user){
