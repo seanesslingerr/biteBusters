@@ -80,6 +80,12 @@ app.get('/', (req, res) =>{
   res.redirect('/login');
 });
 
+const auth = (req, res, next) => {
+  if (!req.session.user) {
+    return res.redirect('/login');
+  }
+  next();
+};
 
 app.use('/home', auth);
 
@@ -95,12 +101,6 @@ app.get('/register', (req, res) =>{
   res.render('pages/register');
 });
 
-const auth = (req, res, next) => {
-  if (!req.session.user) {
-    return res.redirect('/login');
-  }
-  next();
-};
 
 app.use('/stats', auth);
 
