@@ -77,53 +77,140 @@ extended: true,
 //API ROUTES
 
 app.get('/', (req, res) =>{
-    res.redirect('/login');
+  res.redirect('/login');
 });
 
+const auth = (req, res, next) => {
+  if (!req.session.user) {
+    return res.redirect('/login');
+  }
+  next();
+};
+
+app.use('/home', auth);
+
 app.get('/home', (req, res) =>{
-res.render('pages/home');
+  res.render('pages/home');
 });
 
 app.get('/login', (req, res) =>{
-res.render('pages/login');
+  res.render('pages/login');
 });
 
 app.get('/register', (req, res) =>{
-    res.render('pages/register');
+  res.render('pages/register');
 });
 
-app.get('/stats', (req, res) =>{
-res.render('pages/stats');
-})
+
+app.use('/stats', auth);
+
+app.get('/stats', async (req, res) => {
+    res.render('pages/stats');
+});
 
 app.get('/logout', (req, res) =>{
   res.render('pages/logout');
+  if (req.session) {
+    req.session.destroy((err) => {
+      if (err) {
+        console.log('Error destroying session:', err);
+        res.status(500).send('Error logging out');
+    ``} else {
+        console.log('Session destroyed, user logged out');
+        res.render('pages/logout');
+      }
+    });
+  } else {
+    res.redirect('pages/login');
+  }
 });
 
-app.post('/register', (req, res) =>{
+app.post('/register', async (req, res) =>{
+  console.log("Just clicked register")
 //register page takes input of first name and last name
-
+  const { fN, lN, password} = req.body;
+  console.log('Recieved data:', fN, lN, password);
+  const fN2 = fN.slice(0,2).toLowerCase();
+  const lN2 = lN.slice(0,2).toLowerCase();
+  console.log('Sliced: ', fN2, lN2);
 //takes input and adds 4 rng numbers
-
-//tests wether or not 2 letters of first name and 2 of last PLUS 4 rng numbers is a unique identikey
-
-//takes password and hashes it
-
-//creates an account, and sends the page a response of identikey and email (which is just identikey + colorado.edu)
-//and the password
-
+  const n1 = Math. floor(Math. random()*10);
+  const n2 = Math. floor(Math. random()*10);
+  const n3 = Math. floor(Math. random()*10);
+  const n4 = Math. floor(Math. random()*10);
+  console.log('numbers:', n1, n2, n3, n4);
+  //tests wether or not 2 letters of first name and 2 of last PLUS 4 rng numbers is a unique identikey
+  const username = fN2 + lN2 + n1 + n2 + n3 + n4;
+  console.log('username', username);
+  try{
+    const user = await db.oneOrNone('SELECT * FROM users WHERE username = $1', [username]);
+    while(user){
+      
+    }
+    console.log('Username is available:', username);
+      
+    //takes password and hashes it
+    const hpassword = await bcrypt.hash(password, 10);
+    console.log('Hashed password:', hpassword);
+  
+    // Insert the new user into the database
+    const email = username + '@colorado.edu'
+    const newUser = await db.any(
+        'INSERT INTO users(username, email, password) VALUES($1, $2, $3) returning *', 
+        [username, email, hpassword]);
+    console.log('New user created:', newUser);
+  
+    //creates an account, and sends the page a response of identikey and email (which is just identikey + colorado.edu)
+  //and the password
+    res.render('pages/registrationInfo', {username, email, password});
+      
+    } catch (error) {
+      console.error('Error during registration:', error);
+      res.redirect('/register'); // In case of an error, redirect back to register
+    }
 });
 
-app.post('/login', (req, res) =>{
+app.post('/login', async (req, res) => {
+  console.log("trying to log in!");
 //takes in an identikey
 //if it exists passes through
+  const { username, password } = req.body;
+  console.log('Received login form data:', username, password);
+  
+  try {
+    const user = await db.oneOrNone('SELECT * FROM users WHERE username = $1', [username]);
+    if(user){
+      //checks if password matches password
+      //if it exists then redirect to the stats (or home) page)
+      console.log('Username is available:', username);
+      const match = await bcrypt.compare(password, user.password);
+      if(match){
+        console.log('Logged in');
+        req.session.user = user;
 
-//checks if password matches password\
-//if it exists then redirect to the stats (or home) page)
+        req.session.save((err) => {
+          if (err) {
+            console.log('Session save error:', err);
+            return res.redirect('/login');
+          }
+          res.redirect('/home');
+        });
+      }
+      else{
+        //if incorrect password, stay on login page but provide response
+          console.log('Incorrect password');
+          res.redirect('/login');
+        }
+      }
+    //if incorrect identitikey, direct to register page
+    else {
+        console.log('No account found');
+        res.redirect('/register');
+      }
+  }catch{
 
-//if incorrect password, stay on login page but provide response
+  }
 
-//if incorrect identitikey, 
 });
 
 //Server Testing
