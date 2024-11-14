@@ -187,7 +187,7 @@ app.post('/login', async (req, res) => {
             console.log('Session save error:', err);
             return res.redirect('/login');
           }
-          res.redirect('/stats');
+          res.redirect('/home');
         });
       }
       else{
