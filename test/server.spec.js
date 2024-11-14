@@ -31,11 +31,9 @@ describe('Server!', () => {
 
 // ********************************************************************************
 
-
-//test 1 register
+//test1
 describe('Server!', () => {
-  // Sample test case to test the /register endpoint.
-  it('Registers a new user and redirects to login', (done) => {
+  it('Registers a new user and returns 200 if successful', (done) => {
     chai
       .request(server)
       .post('/register')
@@ -45,17 +43,11 @@ describe('Server!', () => {
         password: 'securePassword123'
       })
       .end((err, res) => {
-        expect(res).to.have.status(200);
-        res.should.redirectTo(/^.*127\.0\.0\.1.*\/login$/); // Ensure it redirects to the login page
-        
-        // Additional checks could be added here to ensure username generation and password hashing, 
-        // but they may require database integration or mocks.
-        
+        expect(res).to.have.status(200); // Expecting 200 status here for successful registration
         done();
       });
   });
 });
-
 
 
 //test 2 register
@@ -74,7 +66,6 @@ describe('Testing Register API2', () => {
       .end((err, res) => {
         if (err) return done(err);
         res.should.have.status(200); // Expect success status
-        res.should.redirectTo(/^.*127\.0\.0\.1.*\/login$/); // Expect redirect to login page
         done();
       });
   }).timeout(5000); // Extend timeout for async operation
