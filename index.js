@@ -207,7 +207,16 @@ app.post('/login', async (req, res) => {
 
 });
 
+
+
 //Server Testing
-app.listen(3000, '0.0.0.0', () => {
+/*app.listen(3000, '0.0.0.0', () => {
 console.log('Server is running on port 3000');
+});*/
+
+module.exports = app.listen(3000);
+
+app.get('/welcome', (req, res) => {
+  res.json({status: 'success', message: 'Welcome!'});
 });
+
