@@ -129,10 +129,15 @@ app.post('/register', async (req, res) =>{
   console.log("Just clicked register")
 //register page takes input of first name and last name
   const { fN, lN, password} = req.body;
+  
   console.log('Recieved data:', fN, lN, password);
   const fN2 = fN.slice(0,2).toLowerCase();
   const lN2 = lN.slice(0,2).toLowerCase();
   console.log('Sliced: ', fN2, lN2);
+
+  if (typeof fN !== 'string' || fN.length < 2 || typeof lN !== 'string' || lN.length < 2) {
+    return res.status(400).json({ message: 'Invalid input' });
+  }
 //takes input and adds 4 rng numbers
   const n1 = Math. floor(Math. random()*10);
   const n2 = Math. floor(Math. random()*10);
@@ -213,7 +218,16 @@ app.post('/login', async (req, res) => {
 
 });
 
+
+
 //Server Testing
-app.listen(3000, '0.0.0.0', () => {
+/*app.listen(3000, '0.0.0.0', () => {
 console.log('Server is running on port 3000');
+});*/
+
+module.exports = app.listen(3000);
+
+app.get('/welcome', (req, res) => {
+  res.json({status: 'success', message: 'Welcome!'});
 });
+

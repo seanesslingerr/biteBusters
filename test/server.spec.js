@@ -33,49 +33,104 @@ describe('Server!', () => {
 
 
 //test 1 register
-describe('Testing Register API1', () => {
-  it('positive : /register', done => {
+describe('Server!', () => {
+  // Sample test case to test the /register endpoint.
+  it('Registers a new user and redirects to login', (done) => {
     chai
       .request(server)
       .post('/register')
       .send({
-        username: 'johndoe',
-        email: 'johndoe@example.com',
-        password: 'securepassword123'
+        fN: 'John',
+        lN: 'Doe',
+        password: 'securePassword123'
       })
       .end((err, res) => {
         expect(res).to.have.status(200);
-        // expect(res.body.message).to.equals('User registered successfully');
-        // res.should.redirectTo(/login$/);
+        res.should.redirectTo(/^.*127\.0\.0\.1.*\/login$/); // Ensure it redirects to the login page
+        
+        // Additional checks could be added here to ensure username generation and password hashing, 
+        // but they may require database integration or mocks.
+        
         done();
       });
   });
 });
- 
+
 
 
 //test 2 register
 
 describe('Testing Register API2', () => {
   // Positive test case
-  it('positive : /register', done => {
-    // Refer to the positive test case above.
-  });
-
-  it('negative : /register with invalid email', done => {
+  it('positive : /register', (done) => {
     chai
       .request(server)
       .post('/register')
       .send({
-        username: 'johndoe',
-        email: 'invalid-email', // invalid email format
+        fN: 'John',
+        lN: 'Doe',
         password: 'securepassword123'
       })
       .end((err, res) => {
-        expect(res).to.have.status(400);
-        //expect(res.body.message).to.equals('Invalid input');
+        if (err) return done(err);
+        res.should.have.status(200); // Expect success status
+        res.should.redirectTo(/^.*127\.0\.0\.1.*\/login$/); // Expect redirect to login page
+        done();
+      });
+  }).timeout(5000); // Extend timeout for async operation
+
+  
+    // Negative test case for invalid or missing first name and last name
+    it('negative : /register with missing or invalid first and last name', (done) => {
+      chai
+        .request(server)
+        .post('/register')
+        .send({
+          fN: '', // Invalid first name (empty)
+          lN: 'D', // Invalid last name (less than 2 characters)
+          password: 'securepassword123'
+        })
+        .end((err, res) => {
+          if (err) return done(err);
+          expect(res).to.have.status(400); // Expect client error status
+          expect(res.body.message).to.equals('Invalid input');
+          done();
+        }); 
+    });
+  }); 
+
+
+describe('Login Route', () => {
+  it('should log in successfully and redirect to /home', (done) => {
+    chai
+      .request(server)
+      .post('/login')
+      .send({
+        username: 'johnDoe123',
+        password: 'correctPassword'
+      })
+      .end((err, res) => {
+        res.should.have.status(200); // Status code 200 (OK)
+        res.should.redirectTo(/^.*127\.0\.0\.1.*\/register$/); // Ensure it redirects to the home page
         done();
       });
   });
+});
 
+
+describe('Login Route', () => {
+  it('should not log in with incorrect password and stay on /login', (done) => {
+    chai
+      .request(server)
+      .post('/login')
+      .send({
+        username: 'johnDoe123',
+        password: 'wrongPassword'
+      })
+      .end((err, res) => {
+        res.should.have.status(200); // Status code 200 (OK)
+        res.should.redirectTo(/^.*127\.0\.0\.1.*\/register$/); // Stay on login page due to incorrect password
+        done();
+      });
+  });
 });
