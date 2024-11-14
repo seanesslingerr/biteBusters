@@ -3,6 +3,8 @@ Team Release Notes:
 October 30 Meeting:
 - Created Database Diagram Draft
 
-October 6 Meeting:
+November 6 Meeting:
 - (Boston) Created system that scrapes the .html file dump from audit and pulls completed courses. (Still a bug or two)
 
+November 13 Meetings:
+- (Boston) updated create and insert .sql files per our Database Diagram, and incuded many CS Classes.
