@@ -126,10 +126,15 @@ app.get('/logout', (req, res) =>{
 app.post('/register', async (req, res) =>{
 //register page takes input of first name and last name
   const { fN, lN, password} = req.body;
+  
   console.log('Recieved data:', fN, lN, password);
   const fN2 = fN.slice(0,2).toLowerCase();
   const lN2 = lN.slice(0,2).toLowerCase();
   console.log('Sliced: ', fN2, lN2);
+
+  if (typeof fN !== 'string' || fN.length < 2 || typeof lN !== 'string' || lN.length < 2) {
+    return res.status(400).json({ message: 'Invalid input' });
+  }
 //takes input and adds 4 rng numbers
   const n1 = Math. floor(Math. random()*10);
   const n2 = Math. floor(Math. random()*10);
