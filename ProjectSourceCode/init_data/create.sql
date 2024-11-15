@@ -1,11 +1,12 @@
 DROP TABLE IF EXISTS users;
 CREATE TABLE users(
     username VARCHAR(50) PRIMARY KEY,
-    password CHAR(60) NOT NULL
+    password CHAR(60) NOT NULL,
 );
 
 CREATE TABLE classes(
     class_code VARCHAR(9) PRIMARY KEY,
+    credit_hours INT NOT NULL,
     name CHAR(60) NOT NULL,
     description VARCHAR(500)
 );
