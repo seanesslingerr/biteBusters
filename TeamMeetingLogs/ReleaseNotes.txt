@@ -15,7 +15,7 @@ November 13 Meeting:
    Mostly updated logout to make it cleaner and added basic table formatting for stats page
 - (Sean) Worked on getting registration page to work when logging in and taking user to homepage
 
-November 14 Meeting:
+November 17 Meeting:
 - (Boston) Created system that scrapes the .html file dump from audit and pulls completed courses. (Still a bug or two)
 - (Ryan & Sania) Helped update pages
 - (Sean) Created login and register with all API routes to all of the pages
