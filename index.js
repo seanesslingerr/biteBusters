@@ -318,8 +318,8 @@ app.post('/login', async (req, res) => {
 
 });
 
-app.post('/file_upload', async (req, res) => {
-  console.log('Uploaded');
+app.get('/file_upload', async (req, res) => {
+  console.log(req);
 
 
 });
