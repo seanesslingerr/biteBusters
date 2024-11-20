@@ -84,6 +84,8 @@ function scraper(data) {
     console.log(credits);
     console.log(grade);
 
+    return [semester, number, credits, grade];
+
 }
 
-scraper("314314")
+console.log(scraper("1233"));
