@@ -223,6 +223,7 @@ app.post('/register', async (req, res) =>{
 //register page takes input of first name and last name
   const { fN, lN, password} = req.body;
   
+  
   console.log('Recieved data:', fN, lN, password);
   const fN2 = fN.slice(0,2).toLowerCase();
   const lN2 = lN.slice(0,2).toLowerCase();
@@ -317,6 +318,8 @@ app.get('/file_upload', async (req, res) => {
 });
 
 
+
+
 //Server Testing
 /*app.listen(3000, '0.0.0.0', () => {
 console.log('Server is running on port 3000');
@@ -327,4 +330,3 @@ module.exports = app.listen(3000);
 app.get('/welcome', (req, res) => {
   res.json({status: 'success', message: 'Welcome!'});
 });
-
