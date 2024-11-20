@@ -4,6 +4,7 @@ October 30 Meeting:
 - (All) Created Database Diagram Draft
 
 November 6 Meeting:
+November 6 Meeting:
 - (Boston) Created system that scrapes the .html file dump from audit and pulls completed courses. (Still a bug or two)
 - (Sania and Ryan) worked on the login page for the website and getting the nav bar to link to all pages
 - (Sean) worked on added all necessary files for the project and getting the docker, .env, etc working 

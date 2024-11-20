@@ -130,6 +130,7 @@ app.post('/register', async (req, res) =>{
 //register page takes input of first name and last name
   const { fN, lN, password} = req.body;
   
+  
   console.log('Recieved data:', fN, lN, password);
   const fN2 = fN.slice(0,2).toLowerCase();
   const lN2 = lN.slice(0,2).toLowerCase();
@@ -217,6 +218,8 @@ app.post('/login', async (req, res) => {
   }
 
 });
+
+
 
 
 
