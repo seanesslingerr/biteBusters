@@ -14,7 +14,7 @@ const axios = require('axios'); // To make HTTP requests from our server. We'll 
 app.use(express.static('public'));
 
 
-function scraper(p1, p2) {
+function scraper(data) {
 
   console.log("Hello World");
 
@@ -24,18 +24,8 @@ function scraper(p1, p2) {
   let credits = new Array(75);
   let grade = new Array(75);
 
-  function name(parameter1, parameter2, parameter3) {
-    // code to be executed
-  }
-  // Reading in the file -- currently hardcoded to be my audit
-  const fs = require('node:fs');
-  fs.readFile('ProjectSourceCode\\BostonAudit.html', 'utf8', (err, data) => {
 
-    // Error Handliing
-    if (err) {
-      console.error(err);
-      return;
-    }
+  const fs = require('node:fs');
 
     // Define Varables
     let line = ""
@@ -110,8 +100,9 @@ function scraper(p1, p2) {
     console.log(credits);
     console.log(grade);
 
-  });
 }
+
+
 
 // *****************************************************
 // <!-- Section 2 : Connect to DB -->
@@ -320,8 +311,7 @@ app.post('/login', async (req, res) => {
 
 app.get('/file_upload', async (req, res) => {
   console.log(req);
-
-
+  // I cannot figure out how to get the actual text of the file.
 });
 
 
