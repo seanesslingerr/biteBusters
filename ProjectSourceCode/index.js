@@ -113,13 +113,13 @@ function scraper(data) {
 // create `ExpressHandlebars` instance and configure the layouts and partials dir.
 const hbs = handlebars.create({
   extname: 'hbs',
-  layoutsDir: __dirname + '/ProjectSourceCode/views/layouts',
-  partialsDir: __dirname + '/ProjectSourceCode/views/partials',
+  layoutsDir: __dirname + '/views/layouts',
+  partialsDir: __dirname + '/views/partials',
 });
 
-console.log(__dirname, path.join(__dirname, 'src', 'views'));
-app.set('views', path.join(__dirname, 'src', 'views')); 
-app.use(express.static(path.join(__dirname, 'resources')));
+/*console.log(__dirname, path.join(__dirname, '', 'views'));
+app.set('views', path.join(__dirname, '', 'views')); 
+app.use(express.static(path.join(__dirname, 'resources')));*/
 
 // database configuration
 const dbConfig = {
@@ -149,7 +149,7 @@ console.log('ERROR:', error.message || error);
 // Register `hbs` as our view engine using its bound `engine()` function.
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, 'ProjectSourceCode/views'));
+app.set('views', path.join(__dirname, 'views'));
 app.use(bodyParser.json()); // specify the usage of JSON for parsing request body.
 
 // initialize session variables
@@ -188,6 +188,7 @@ app.get('/home', (req, res) =>{
 
 app.get('/login', (req, res) =>{
   res.render('pages/login');
+  //res.send("Checking");
 });
 
 app.get('/register', (req, res) =>{
