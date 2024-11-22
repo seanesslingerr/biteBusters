@@ -8,5 +8,3 @@ for file in init_data/*.sql; do
     echo "Executing $file..."
     psql $PG_URI -f "$file"
 done
-
-
