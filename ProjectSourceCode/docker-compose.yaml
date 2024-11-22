@@ -11,7 +11,7 @@ services:
   web:
     image: node:lts
     user: 'node'
-    working_dir: /home/node/biteBusters/ProjectSourceCode
+    working_dir: /home/node/biteBusters
     env_file: .env
     environment:
       - NODE_ENV=development
