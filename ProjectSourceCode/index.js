@@ -103,7 +103,39 @@ function scraper(data) {
     return [semester, number, credits, grade];
 
 }
+const student_courses = `
+  SELECT DISTINCT
+    classes.class_code,
+    classes.credit_hours,
+    classes.name,
+    classes.description,
+    users.username = $1 AS "taken"
+  FROM
+    classes
+    JOIN users_to_classes ON classes.class_code = users_to_classes.class_code
+    JOIN users ON users_to_classes.username = users.username
+  WHERE users.username = $1
+  ORDER BY classes.class_code ASC;`;
 
+const all_courses = `
+  SELECT
+    classes.class_code,
+    classes.course_name,
+    classes.credit_hours,
+    CASE
+    WHEN
+    classes.class_code IN (
+      SELECT student_courses.class_code
+      FROM student_courses
+      WHERE student_courses.student_id = $1
+    ) THEN TRUE
+    ELSE FALSE
+    END
+    AS "taken"
+  FROM
+    courses
+  ORDER BY courses.course_id ASC;
+  `;
 
 
 // *****************************************************
@@ -183,7 +215,22 @@ const auth = (req, res, next) => {
 app.use('/home', auth);
 
 app.get('/home', (req, res) =>{
-  res.render('pages/home');
+
+  db.any(student_courses, [req.session.user.username])
+    .then(courses => {
+      console.log(courses)
+      res.render('pages/courses', {
+        username: user.username,
+        courses,
+      });
+    })
+    .catch(err => {
+      res.render('pages/courses', {
+        courses: [],
+        email: user.username,
+        error: true,
+      });
+    });
 });
 
 app.get('/login', (req, res) =>{
@@ -233,11 +280,16 @@ app.post('/register', async (req, res) =>{
   if (typeof fN !== 'string' || fN.length < 2 || typeof lN !== 'string' || lN.length < 2) {
     return res.status(400).json({ message: 'Invalid input' });
   }
-//takes input and adds 4 rng numbers
-  const n1 = Math. floor(Math. random()*10);
-  const n2 = Math. floor(Math. random()*10);
-  const n3 = Math. floor(Math. random()*10);
-  const n4 = Math. floor(Math. random()*10);
+//takes input and adds 4 rng numbers  ----------------------------------------------------------   EDITED
+  //const n1 = Math. floor(Math. random()*10);
+  //const n2 = Math. floor(Math. random()*10);
+  //const n3 = Math. floor(Math. random()*10);
+  //const n4 = Math. floor(Math. random()*10);
+
+  const n1 = 1;
+  const n2 = 1;
+  const n3 = 1;
+  const n4 = 1;
   console.log('numbers:', n1, n2, n3, n4);
   //tests wether or not 2 letters of first name and 2 of last PLUS 4 rng numbers is a unique identikey
   const username = fN2 + lN2 + n1 + n2 + n3 + n4;

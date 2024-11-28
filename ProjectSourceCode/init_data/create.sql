@@ -13,9 +13,9 @@ CREATE TABLE users_to_classes(
     username VARCHAR(50) PRIMARY KEY,
     class_code VARCHAR(9) NOT NULL,
     grade CHAR(1),
-    semester VARCHAR(4),
-    FOREIGN KEY (username) REFERENCES users (username) ON DELETE CASCADE,
-    FOREIGN KEY (class_code) REFERENCES classes (class_code) ON DELETE CASCADE
+    semester VARCHAR(4)
+    --FOREIGN KEY (username) REFERENCES users (username) ON DELETE CASCADE,
+    --FOREIGN KEY (class_code) REFERENCES classes (class_code) ON DELETE CASCADE
 );
 CREATE TABLE majors(
     major VARCHAR(50) PRIMARY KEY,

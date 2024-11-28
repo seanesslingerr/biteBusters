@@ -1,7 +1,7 @@
 INSERT INTO users
   (username, email, password)
 VALUES
-  ('test1234','test1234@colorado.edu', '1234');
+  ('test1234','test1234@colorado.edu', '$2a$10$PR5TwW83rIoRSIuSD2whUeu84Yeji62.lwWvMeUvYooB.fpMimhOa');
 INSERT INTO classes
   (class_code, credit_hours, name, description)
 VALUES
@@ -35,3 +35,9 @@ VALUES
   ('APPM1360', 4, 'Calculus 2 for Engineers', 'none'),
   ('CSCI2824', 3, 'Discrete Structures', 'none'),
   ('CSCI2820', 3, 'Linear Algebra with CS Applications', 'none');
+  
+
+INSERT INTO users_to_classes
+  (username , class_code, grade, semester)
+VALUES
+  ('boab1111', 'CSCI1000', 'A', 'FA24');
