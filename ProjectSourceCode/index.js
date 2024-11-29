@@ -12,95 +12,103 @@ const session = require('express-session'); // To set the session object. To sto
 const bcrypt = require('bcryptjs'); // To hash passwords
 const axios = require('axios'); // To make HTTP requests from our server. We'll learn more about it in Part C.
 app.use(express.static('public'));
+var formidable = require('formidable');
+let semester = new Array(75);
+let number = new Array(75);
+let credits = new Array(75);
+let grade = new Array(75);
 
-
-function scraper(data) {
-
-  console.log("Hello World");
+function scraper(loc) {
 
   // Create Varables to store the information scraped.
-  let semester = new Array(75);
-  let number = new Array(75);
-  let credits = new Array(75);
-  let grade = new Array(75);
 
 
-  const fs = require('node:fs');
 
-    // Define Varables
-    let line = ""
-    let lineNo = 1
-    let leftRows = 5;
-    let fill = 0
-    const usefullRows = ["", "", "", ""];
+// Reading in the file -- currently hardcoded to be my audit
+const fs = require('node:fs');
+fs.readFile(loc, 'utf8', (err, data) => {
 
+  // Error Handliing
+  if (err) {
+    console.error(err);
+    return;
+  }
 
-    for (let i = 0; i < data.length; i++) {
-
-      // If the line terminator is not found than keep adding chars to the line
-      if (data[i] !== "\n") {
-          line = line + data[i];
-
-      }
-      // if you do find the line terminator then you are at the end of a line, so do
-      else {
-        
-        //if (lineNo === 1032) { {{ FINDING THE LINE }}
-        //  console.log("on");        
-        //  console.log(line);
-        //}
-
-        // If we should be reaing the data in, triggered by other if statment below
-        if (leftRows < 5) {
-
-          //Fill the usefull rows array with the usefull lines
-          usefullRows[4-leftRows] = line;
-          leftRows = leftRows - 1;
-
-          // If the whole set of usefull for this indivdual class has been looked through
-          if(leftRows === 0) {
-            leftRows = 5;
-            //console.log(usefullRows[0]);
-
-            // Fill the arrays and console log for debug
-            semester[fill] = usefullRows[0].slice(54,58);
-            number[fill] = usefullRows[1].slice(58,66);
-            credits[fill] = usefullRows[2].slice(59,62);
-            grade[fill] = usefullRows[3].slice(56,57);
-            fill = fill+1;
-            //console.log("found");
-            console.log(usefullRows[0].slice(54,58));
-            console.log(usefullRows[1].slice(58,66));
-            console.log(usefullRows[2].slice(59,62));
-            console.log(usefullRows[3].slice(56,57));
-            console.log("");
-
-            usefullRows[0] = "";
-            usefullRows[1] = "";
-            usefullRows[2] = "";
-            usefullRows[3] = "";
-          }
+  // Define Varables
+  let line = ""
+  let lineNo = 1
+  let leftRows = 5;
+  let fill = 0
+  const usefullRows = ["", "", "", ""];
 
 
+  for (let i = 0; i < data.length; i++) {
+
+    // If the line terminator is not found than keep adding chars to the line
+    if (data[i] !== "\n") {
+        line = line + data[i];
+
+    }
+    // if you do find the line terminator then you are at the end of a line, so do
+    else {
+      
+      //if (lineNo === 1032) { {{ FINDING THE LINE }}
+      //  console.log("on");        
+      //  console.log(line);
+      //}
+
+      // If we should be reaing the data in, triggered by other if statment below
+      if (leftRows < 5) {
+
+        //Fill the usefull rows array with the usefull lines
+        usefullRows[4-leftRows] = line;
+        leftRows = leftRows - 1;
+
+        // If the whole set of usefull for this indivdual class has been looked through
+        if(leftRows === 0) {
+          leftRows = 5;
+          //console.log(usefullRows[0]);
+
+          // Fill the arrays and console log for debug
+          semester[fill] = usefullRows[0].slice(54,58);
+          number[fill] = usefullRows[1].slice(58,66);
+          credits[fill] = usefullRows[2].slice(59,62);
+          grade[fill] = usefullRows[3].slice(56,57);
+          fill = fill+1;
+          //console.log("found");
+          //console.log(usefullRows[0].slice(54,58));
+          //console.log(usefullRows[1].slice(58,66));
+          //console.log(usefullRows[2].slice(59,62));
+          //console.log(usefullRows[3].slice(56,57));
+          //console.log("");
+
+          usefullRows[0] = "";
+          usefullRows[1] = "";
+          usefullRows[2] = "";
+          usefullRows[3] = "";
         }
-    
-      // The line is the line right above the info we need about a class, it start the process of reading in the data
-      if (line === '											<tbody><tr class="takenCourse ">') {
-        leftRows = 4;
-      }
 
-      // end of loop housekeeping
-      lineNo = lineNo  + 1;
-          line = "";
-      }
-    } 
-    // log for debugging
-    console.log(semester);
-    console.log(number);
-    console.log(credits);
-    console.log(grade);
 
-    return [semester, number, credits, grade];
+      }
+  
+    // The line is the line right above the info we need about a class, it start the process of reading in the data
+    if (line === '											<tbody><tr class="takenCourse ">') {
+      leftRows = 4;
+    }
+
+    // end of loop housekeeping
+    lineNo = lineNo  + 1;
+        line = "";
+    }
+  } 
+
+
+});
+console.log(semester);
+console.log(number);
+console.log(credits);
+console.log(grade);
+return [semester, number, credits, grade];
 
 }
 const student_courses = `
@@ -212,25 +220,14 @@ const auth = (req, res, next) => {
   next();
 };
 
-app.use('/home', auth);
 
-app.get('/home', (req, res) =>{
 
-  db.any(student_courses, [req.session.user.username])
-    .then(courses => {
-      console.log(courses)
-      res.render('pages/courses', {
-        username: user.username,
-        courses,
-      });
-    })
-    .catch(err => {
-      res.render('pages/courses', {
-        courses: [],
-        email: user.username,
-        error: true,
-      });
-    });
+app.get('/home', async (req, res) =>{
+
+  const user = req.session.user
+  const classes = await db.any("SELECT * FROM classes");
+  res.render('pages/home', {user, classes})
+  
 });
 
 app.get('/login', (req, res) =>{
@@ -364,10 +361,26 @@ app.post('/login', async (req, res) => {
   }
 
 });
+var http = require('http');
+var formidable = require('formidable');
+var fs = require('fs');
 
-app.get('/file_upload', async (req, res) => {
-  console.log(req);
-  // I cannot figure out how to get the actual text of the file.
+
+
+app.post('/fileupload', async (req, res) => {
+  
+  console.log("test123")
+  var form = new formidable.IncomingForm();
+
+  form.parse(req, function (err, fields, files) {
+    outputofscraper = scraper(files.filetoupload[0].filepath);
+    console.log(outputofscraper);
+    console.log(semester);
+    console.log(number);
+    console.log(credits);
+    console.log(grade);
+    // Loosely inspired by: https://www.w3schools.com/nodejs/nodejs_uploadfiles.asp
+});
 });
 
 

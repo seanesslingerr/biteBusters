@@ -57,12 +57,18 @@
             <p>*insert GPA here*</p>
           </div>
         </div>
-        
+              Test: {{username}}
+      Test 2:
+           Foo
+
         <!-- Your Classes Section -->
         <div class="card">
           <div class="card-header">Your Classes</div>
           <div class="card-body">
-            <p>(Lecture)</p>
+            {{#each classes}}
+              <p>{{class_code}} - </p>
+            {{/each}}
+
             <p>(Lecture)</p>
             <p>(Lecture)</p>
             <p>(Lecture)</p>
@@ -91,11 +97,6 @@
           </div>
         </div>
       </div>    
-      Test: {{username}}
-      Test 2:
-        {{#each classes}}
-          {{class_code}} Foo
-        {{/each}}
 
 
       <!-- Class Schedule Section -->
@@ -117,8 +118,8 @@
         </div>
       </div>
 
-      <form action="/file_upload">
-      <input type="file" id="1" name="filename">
+      <form action="/fileupload" method = "post" enctype="multipart/form-data">
+      <input type="file" id="1" name="filetoupload">
       <input type="submit">
   </form>
     </div>
