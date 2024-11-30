@@ -84,12 +84,12 @@ const student_courses = `
     classes.credit_hours,
     classes.name,
     classes.description,
-    users.username = $1 AS "taken"
+    users_to_classes.username
   FROM
     classes
     JOIN users_to_classes ON classes.class_code = users_to_classes.class_code
-    JOIN users ON users_to_classes.username = users.username
-  WHERE users.username = $1
+  WHERE users_to_classes.username = $1
+
   ORDER BY classes.class_code ASC;`;
 
 const all_courses = `
@@ -192,7 +192,8 @@ const auth = (req, res, next) => {
 app.get('/home', async (req, res) =>{
 
   const user = req.session.user
-  const classes = await db.any("SELECT * FROM classes");
+  console.log(user);
+  const classes = await db.any(student_courses, [user.username]);
   res.render('pages/home', {user, classes})
   
 });
@@ -298,8 +299,8 @@ app.post('/login', async (req, res) => {
     if(user || username == "test"){
       //checks if password matches password
       //if it exists then redirect to the stats (or home) page)
-      console.log('Username is available:', username);
-      console.log('>', username, "<");
+      console.log('Username exists in database:', username);
+      //console.log('>', username, "<");
       const match = await bcrypt.compare(password, user.password);
       if(match || (username === "test")){
         console.log('Logged in');
