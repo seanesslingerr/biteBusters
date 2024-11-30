@@ -19,13 +19,10 @@ function scraper(loc) {
   const number = new Array(75);
   const credits = new Array(75);
   const grade = new Array(75);
-
   const fs = require('node:fs');
-  reader = fs.readFile(loc, 'utf8', (err, data) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
+  console.log("insidescraper")
+  data = fs.readFileSync(loc, 'utf8');
+
     // Define Varables
     let line = ""
     let lineNo = 1
@@ -33,7 +30,6 @@ function scraper(loc) {
     let fill = 0
     const usefullRows = ["", "", "", ""];
     for (let i = 0; i < data.length; i++) {
-
       // If the line terminator is not found than keep adding chars to the line
       if (data[i] !== "\n") {
           line = line + data[i];
@@ -60,7 +56,6 @@ function scraper(loc) {
             credits[fill] = usefullRows[2].slice(59,62);
             grade[fill] = usefullRows[3].slice(56,57);
             fill = fill+1;
-            
             usefullRows[0] = "";
             usefullRows[1] = "";
             usefullRows[2] = "";
@@ -76,13 +71,10 @@ function scraper(loc) {
           line = "";
       }
     } 
-  });
-  reader.then(()  => {
-    console.log("in then")
-    return [semester, number, credits, grade];
-  });
-  
+  //});
+  console.log(semester);
 
+  return [semester, number, credits, grade];
 }
 
 
@@ -340,27 +332,15 @@ var http = require('http');
 var formidable = require('formidable');
 var fs = require('fs');
 
-
-
 app.post('/fileupload', async (req, res) => {
-  
-  console.log("test123")
+  console.log("test123");
   var form = new formidable.IncomingForm();
-  var outputofscraper = [ "bad", "Bad", "bad", "bad"]
   form.parse(req, function (err, fields, files) {
-    console.log(files.filetoupload[0].filepath);
     outputofscraper = scraper(files.filetoupload[0].filepath);
-    
-
-
+    console.log(outputofscraper);
     //const update = db.any("INSERT INTO users_to_classes (username, class_code, grade, semester) VALUES ($1, $2, $3, $4);", [req.session.user.username, number[0], grade[0], semester[0]]);
-
-
     // Loosely inspired by: https://www.w3schools.com/nodejs/nodejs_uploadfiles.asp
-});
-console.log("start");
-console.log(outputofscraper);
-console.log("end");
+    });
 });
 
 //Server Testing
