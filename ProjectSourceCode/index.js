@@ -74,7 +74,7 @@ function scraper(loc) {
   //});
   console.log(semester);
 
-  return [semester, number, credits, grade];
+  return [semester, number, credits, grade, fill];
 }
 
 
@@ -338,11 +338,17 @@ app.post('/fileupload', async (req, res) => {
   console.log("test123");
   var form = new formidable.IncomingForm();
   form.parse(req, function (err, fields, files) {
-    outputofscraper = scraper(files.filetoupload[0].filepath);
-    console.log(outputofscraper);
-    //const update = db.any("INSERT INTO users_to_classes (username, class_code, grade, semester) VALUES ($1, $2, $3, $4);", [req.session.user.username, number[0], grade[0], semester[0]]);
+    [semester, number, credits, grade, sz] = scraper(files.filetoupload[0].filepath);
+    console.log(semester);
+    for (let i = 0; i < sz; i++) {
+      const update = db.any("INSERT INTO users_to_classes (username, class_code, grade, semester) VALUES ($1, $2, $3, $4);", [req.session.user.username, number[i], grade[i], semester[i]]);
+      
+    }
+    
     // Loosely inspired by: https://www.w3schools.com/nodejs/nodejs_uploadfiles.asp
     });
+    res.redirect('/home');
+
 });
 
 //Server Testing

@@ -10,7 +10,7 @@ CREATE TABLE classes(
     description VARCHAR(500)
 );
 CREATE TABLE users_to_classes(
-    username VARCHAR(50) PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
     class_code VARCHAR(9) NOT NULL,
     grade CHAR(1),
     semester VARCHAR(4)
