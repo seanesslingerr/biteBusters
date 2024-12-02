@@ -3,7 +3,9 @@ CREATE TABLE users(
     email VARCHAR(60) NOT NULL,
     password CHAR(60) NOT NULL,
     name CHAR(60),
-    GPA VARCHAR(60)
+    GPA VARCHAR(60),
+    hours VARCHAR(60)
+
 );
 
 CREATE TABLE classes(
@@ -17,7 +19,8 @@ CREATE TABLE users_to_classes(
     username VARCHAR(50) NOT NULL,
     class_code VARCHAR(9) NOT NULL,
     grade CHAR(1),
-    semester VARCHAR(4)
+    semester VARCHAR(4),
+    current CHAR(1)
     --FOREIGN KEY (username) REFERENCES users (username) ON DELETE CASCADE,
     --FOREIGN KEY (class_code) REFERENCES classes (class_code) ON DELETE CASCADE
 );

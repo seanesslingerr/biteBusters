@@ -1,7 +1,7 @@
 INSERT INTO users
-  (username, email, password, name, GPA)
+  (username, email, password, name, GPA, hours)
 VALUES
-  ('boab','boab1234@colorado.edu', '1234', 'Boston', '4.00');
+  ('boab','boab1234@colorado.edu', '1234', 'Boston', '4.00', 5);
 INSERT INTO classes
   (class_code, credit_hours, name, description)
 VALUES
@@ -38,7 +38,7 @@ VALUES
   
 
 INSERT INTO users_to_classes
-  (username, class_code, grade, semester)
+  (username, class_code, grade, semester, current)
 VALUES
-  ('boab1111', 'CSCI1000', 'A', 'FA24'),
-  ('boab1121', 'CSCI2000', 'A', 'FA24');;
+  ('boab1112', 'CSCI1000', 'A', 'FA24', 1),
+  ('boab1121', 'CSCI2000', 'A', 'FA24', 1);

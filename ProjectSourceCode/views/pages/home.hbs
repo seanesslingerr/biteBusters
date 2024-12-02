@@ -57,15 +57,28 @@
             {{#each GPAfind}}
             <p>{{gpa}}</p>/4.000
             {{/each}}
+            
+            HOURS VALUE:
+            {{#each GPAfind}}
+            <p>{{hours}}</p>/120
+            {{/each}}
           </div>
         </div>
 
         <!-- Your Classes Section -->
         <div class="card">
-          <div class="card-header">Your Classes</div>
+          <div class="card-header">Your Current Classes</div>
           <div class="card-body">
             {{#each classes}}
+            {{#if current}}
               <p>{{class_code}} - {{name}}</p>
+              {{/if}}
+              {{/each}}
+              Past Classes
+              {{#each classes}}
+            {{#unless current}}
+              <p>{{class_code}} - {{name}}</p>
+              {{/unless}}
             {{/each}}
           </div>
         </div>
