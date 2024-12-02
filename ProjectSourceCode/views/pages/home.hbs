@@ -54,19 +54,19 @@
         <div class="card">
           <div class="card-header">Current Semester GPA</div>
           <div class="card-body">
-            <p>*insert GPA here*</p>
+            {{#each GPAfind}}
+            <p>{{gpa}}</p>/4.000
+            {{/each}}
           </div>
         </div>
-        
+
         <!-- Your Classes Section -->
         <div class="card">
           <div class="card-header">Your Classes</div>
           <div class="card-body">
-            <p>(Lecture)</p>
-            <p>(Lecture)</p>
-            <p>(Lecture)</p>
-            <p>(Lecture)</p>
-            <p>(Lecture)</p>
+            {{#each classes}}
+              <p>{{class_code}} - {{name}}</p>
+            {{/each}}
           </div>
         </div>
       </div>
@@ -86,11 +86,12 @@
           <div class="card-header">CU Boulder Email</div>
           <div class="card-body">
             <p>Your CU Boulder mailhome is: Exchange</p>
-            <p>Log in with ______ and your IdentiKey password.</p>
+            <p>Log in with {{user.email}} and your IdentiKey password.</p>
             <button class="btn btn-custom">Log In to Exchange</button>
           </div>
         </div>
-      </div>
+      </div>    
+
 
       <!-- Class Schedule Section -->
       <div class="col-md-4">
@@ -111,8 +112,8 @@
         </div>
       </div>
 
-      <form action="/file_upload">
-      <input type="file" id="1" name="filename">
+      <form action="/fileupload" method = "post" enctype="multipart/form-data">
+      <input type="file" id="1" name="filetoupload">
       <input type="submit">
   </form>
     </div>

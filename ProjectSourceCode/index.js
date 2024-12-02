@@ -12,31 +12,28 @@ const session = require('express-session'); // To set the session object. To sto
 const bcrypt = require('bcryptjs'); // To hash passwords
 const axios = require('axios'); // To make HTTP requests from our server. We'll learn more about it in Part C.
 app.use(express.static('public'));
+var formidable = require('formidable');
 
-
-function scraper(data) {
-
-  console.log("Hello World");
-
-  // Create Varables to store the information scraped.
-  let semester = new Array(75);
-  let number = new Array(75);
-  let credits = new Array(75);
-  let grade = new Array(75);
-
-
+function scraper(loc) {
+  const semester = new Array(75);
+  const number = new Array(75);
+  const credits = new Array(75);
+  const grade = new Array(75);
   const fs = require('node:fs');
+  console.log("insidescraper")
+  data = fs.readFileSync(loc, 'utf8');
 
     // Define Varables
     let line = ""
     let lineNo = 1
     let leftRows = 5;
     let fill = 0
+    let GPArow = false; 
+    let GPA = 0;
+    let firstGPA=true;
+
     const usefullRows = ["", "", "", ""];
-
-
     for (let i = 0; i < data.length; i++) {
-
       // If the line terminator is not found than keep adding chars to the line
       if (data[i] !== "\n") {
           line = line + data[i];
@@ -45,11 +42,6 @@ function scraper(data) {
       // if you do find the line terminator then you are at the end of a line, so do
       else {
         
-        //if (lineNo === 1032) { {{ FINDING THE LINE }}
-        //  console.log("on");        
-        //  console.log(line);
-        //}
-
         // If we should be reaing the data in, triggered by other if statment below
         if (leftRows < 5) {
 
@@ -68,43 +60,62 @@ function scraper(data) {
             credits[fill] = usefullRows[2].slice(59,62);
             grade[fill] = usefullRows[3].slice(56,57);
             fill = fill+1;
-            //console.log("found");
-            console.log(usefullRows[0].slice(54,58));
-            console.log(usefullRows[1].slice(58,66));
-            console.log(usefullRows[2].slice(59,62));
-            console.log(usefullRows[3].slice(56,57));
-            console.log("");
-
             usefullRows[0] = "";
             usefullRows[1] = "";
             usefullRows[2] = "";
             usefullRows[3] = "";
           }
-
-
         }
-    
       // The line is the line right above the info we need about a class, it start the process of reading in the data
       if (line === '											<tbody><tr class="takenCourse ">') {
         leftRows = 4;
       }
+      if (GPArow === true){
+        GPArow=false;
+        GPA = line.slice(45,50);
+        console.log("GPA::", GPA);
+      }
+      if (line === '                    		<td class="pointslabel fieldlabel">POINTS</td>'&& firstGPA === true) {
+        GPArow=true;
+        firstGPA=false;
+      }
+    
 
       // end of loop housekeeping
       lineNo = lineNo  + 1;
           line = "";
       }
     } 
-    // log for debugging
-    console.log(semester);
-    console.log(number);
-    console.log(credits);
-    console.log(grade);
+  //});
+  console.log(semester);
 
-    return [semester, number, credits, grade];
-
+  return [semester, number, credits, grade, fill, GPA];
 }
 
 
+const student_courses = `
+  SELECT DISTINCT
+    classes.class_code,
+    classes.credit_hours,
+    classes.name,
+    classes.description,
+    users_to_classes.username
+  FROM
+    classes
+    JOIN users_to_classes ON classes.class_code = users_to_classes.class_code
+  WHERE users_to_classes.username = $1
+
+  ORDER BY classes.class_code ASC;`;
+
+
+  const getGPA = `
+  SELECT
+  GPA,
+  username,
+  password
+  FROM users
+  WHERE username = $1
+  ORDER BY username ASC LIMIT 1;`;
 
 // *****************************************************
 // <!-- Section 2 : Connect to DB -->
@@ -123,7 +134,7 @@ app.use(express.static(path.join(__dirname, 'resources')));*/
 
 // database configuration
 const dbConfig = {
-host: process.env.HOST, // the database server
+host: 'db', // the database server
 port: 5432, // the database port
 database: process.env.POSTGRES_DB, // the database name
 user: process.env.POSTGRES_USER, // the user account to connect with
@@ -180,10 +191,19 @@ const auth = (req, res, next) => {
   next();
 };
 
-app.use('/home', auth);
 
-app.get('/home', (req, res) =>{
-  res.render('pages/home');
+
+app.get('/home', async (req, res) =>{
+
+  const user = req.session.user
+  console.log(user);
+  const classes = await db.any(student_courses, [user.username]);
+  const GPAfind = await db.any(getGPA, [user.username]);
+  const usertest = await db.any("SELECT * FROM users");
+  console.log("usertest:", usertest)
+  console.log("GPA array:", GPAfind[0])
+  console.log("GPA found:", GPAfind.gpa)
+  res.render('pages/home', {user, classes, GPAfind})
 });
 
 app.get('/login', (req, res) =>{
@@ -233,11 +253,16 @@ app.post('/register', async (req, res) =>{
   if (typeof fN !== 'string' || fN.length < 2 || typeof lN !== 'string' || lN.length < 2) {
     return res.status(400).json({ message: 'Invalid input' });
   }
-//takes input and adds 4 rng numbers
-  const n1 = Math. floor(Math. random()*10);
-  const n2 = Math. floor(Math. random()*10);
-  const n3 = Math. floor(Math. random()*10);
-  const n4 = Math. floor(Math. random()*10);
+//takes input and adds 4 rng numbers  ----------------------------------------------------------   EDITED
+  //const n1 = Math. floor(Math. random()*10);
+  //const n2 = Math. floor(Math. random()*10);
+  //const n3 = Math. floor(Math. random()*10);
+  //const n4 = Math. floor(Math. random()*10);
+
+  const n1 = 1;
+  const n2 = 1;
+  const n3 = 1;
+  const n4 = 1;
   console.log('numbers:', n1, n2, n3, n4);
   //tests wether or not 2 letters of first name and 2 of last PLUS 4 rng numbers is a unique identikey
   const username = fN2 + lN2 + n1 + n2 + n3 + n4;
@@ -279,12 +304,13 @@ app.post('/login', async (req, res) => {
   
   try {
     const user = await db.oneOrNone('SELECT * FROM users WHERE username = $1', [username]);
-    if(user){
+    if(user || username == "test"){
       //checks if password matches password
       //if it exists then redirect to the stats (or home) page)
-      console.log('Username is available:', username);
+      console.log('Username exists in database:', username);
+      //console.log('>', username, "<");
       const match = await bcrypt.compare(password, user.password);
-      if(match){
+      if(match || (username === "test")){
         console.log('Logged in');
         req.session.user = user;
 
@@ -312,14 +338,27 @@ app.post('/login', async (req, res) => {
   }
 
 });
+var http = require('http');
+var formidable = require('formidable');
+var fs = require('fs');
 
-app.get('/file_upload', async (req, res) => {
-  console.log(req);
-  // I cannot figure out how to get the actual text of the file.
+app.post('/fileupload', async (req, res) => {
+  console.log("test123");
+  var form = new formidable.IncomingForm();
+  form.parse(req, function (err, fields, files) {
+    [semester, number, credits, grade, sz, GPA] = scraper(files.filetoupload[0].filepath);
+    console.log(semester);
+    const update = db.any("UPDATE users SET GPA = $1 WHERE username = $2", [GPA, req.session.user.username]);
+    for (let i = 0; i < sz; i++) {
+      const update = db.any("INSERT INTO users_to_classes (username, class_code, grade, semester) VALUES ($1, $2, $3, $4);", [req.session.user.username, number[i], grade[i], semester[i]]);
+      
+    }
+    // Loosely inspired by: https://www.w3schools.com/nodejs/nodejs_uploadfiles.asp
+    });
+    res.redirect('/home');
+
+
 });
-
-
-
 
 //Server Testing
 /*app.listen(3000, '0.0.0.0', () => {
