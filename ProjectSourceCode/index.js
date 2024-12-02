@@ -14,6 +14,7 @@ const axios = require('axios'); // To make HTTP requests from our server. We'll 
 app.use(express.static('public'));
 var formidable = require('formidable');
 
+
 function scraper(loc) {
   const semester = new Array(75);
   const number = new Array(75);
@@ -269,15 +270,15 @@ app.post('/register', async (req, res) =>{
     return res.status(400).json({ message: 'Invalid input' });
   }
 //takes input and adds 4 rng numbers  ----------------------------------------------------------   EDITED
-  //const n1 = Math. floor(Math. random()*10);
-  //const n2 = Math. floor(Math. random()*10);
-  //const n3 = Math. floor(Math. random()*10);
-  //const n4 = Math. floor(Math. random()*10);
+  const n1 = Math. floor(Math. random()*10);
+  const n2 = Math. floor(Math. random()*10);
+  const n3 = Math. floor(Math. random()*10);
+  const n4 = Math. floor(Math. random()*10);
 
-  const n1 = 1;
-  const n2 = 1;
-  const n3 = 1;
-  const n4 = 1;
+  // const n1 = 1;
+  // const n2 = 1;
+  // const n3 = 1;
+  // const n4 = 1;
   console.log('numbers:', n1, n2, n3, n4);
   //tests wether or not 2 letters of first name and 2 of last PLUS 4 rng numbers is a unique identikey
   const username = fN2 + lN2 + n1 + n2 + n3 + n4;
