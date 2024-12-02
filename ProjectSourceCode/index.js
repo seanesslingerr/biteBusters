@@ -31,6 +31,9 @@ function scraper(loc) {
     let GPArow = false; 
     let GPA = 0;
     let firstGPA=true;
+    let hoursrow = false; 
+    let hours = 0;
+    let firsthours=true;
 
     const usefullRows = ["", "", "", ""];
     for (let i = 0; i < data.length; i++) {
@@ -78,6 +81,22 @@ function scraper(loc) {
         GPArow=true;
         firstGPA=false;
       }
+      if (hoursrow === true){
+        hoursrow=false;
+        hours = line.slice(52,57);
+        if (hours[2] === '.') {
+          console.log("Shortening Hours")
+          hours = line.slice(52,56);
+
+        }
+        console.log(hours);
+      }
+      if (line === '                        <td class="hourscount bigcolumn">') {
+        hoursrow=true;
+        firsthours=false;
+      }
+      
+
     
 
       // end of loop housekeeping
@@ -88,7 +107,7 @@ function scraper(loc) {
   //});
   console.log(number);
 
-  return [semester, number, credits, grade, fill, GPA];
+  return [semester, number, credits, grade, fill, GPA, hours];
 }
 
 
@@ -109,10 +128,7 @@ const student_courses = `
 
 
   const getGPA = `
-  SELECT
-  GPA,
-  username,
-  password
+  SELECT *
   FROM users
   WHERE username = $1
   ORDER BY username ASC LIMIT 1;`;
@@ -345,10 +361,11 @@ app.post('/fileupload', async (req, res) => {
   console.log("test123");
   var form = new formidable.IncomingForm();
   form.parse(req, function (err, fields, files) {
-    [semester, number, credits, grade, sz, GPA] = scraper(files.filetoupload[0].filepath);
+    [semester, number, credits, grade, sz, GPA, hours] = scraper(files.filetoupload[0].filepath);
     console.log(semester);
     let curr = "";
-    const update = db.any("UPDATE users SET GPA = $1 WHERE username = $2", [GPA, req.session.user.username]);
+    console.log(hours,req.session.user.username);
+    const update = db.any("UPDATE users SET GPA = $1, hours = $2 WHERE username = $3;", [GPA, hours, req.session.user.username]);
     for (let i = 0; i < sz; i++) {
       if (semester[i] === 'FA24') {
         curr = 1;

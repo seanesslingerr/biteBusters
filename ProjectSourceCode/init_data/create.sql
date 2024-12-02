@@ -3,7 +3,9 @@ CREATE TABLE users(
     email VARCHAR(60) NOT NULL,
     password CHAR(60) NOT NULL,
     name CHAR(60),
-    GPA VARCHAR(60)
+    GPA VARCHAR(60),
+    hours VARCHAR(60)
+
 );
 
 CREATE TABLE classes(
