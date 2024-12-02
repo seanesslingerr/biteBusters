@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<title>Progress Bar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+/* Additional styling for a gold and black theme */
+.w3-container {
+ max-width: 400px;
+ margin: auto;
+}
+
+
+.w3-light-grey {
+ background-color: #333;
+ border-radius: 10px;
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+
+#myBar {
+ background: linear-gradient(90deg, #ffd700, #ffb800);
+ color: #333;
+ font-weight: bold;
+ border-radius: 10px;
+ text-align: center;
+ padding: 8px 0;
+}
+
+
+.w3-button {
+ background-color: #ffd700;
+ color: #333;
+ border: none;
+ padding: 10px 20px;
+ border-radius: 5px;
+ cursor: pointer;
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+ transition: background-color 0.3s;
+}
+
+
+.w3-button:hover {
+ background-color: #ffb800;
+}
+</style>
+
+
+<body>
+<div class="w3-container">
+ <p>Progress Toward Completing Classes:</p>
+ <div class="w3-light-grey">
+   <div id="myBar" style="width:20%">20%</div>
+ </div>
+ <br>
+ <button class="w3-button" onclick="completeClass()">Hit this button when you have finished a class to update progress</button>
+</div>
+
+
+<script>
+// Initialize progress
+let progress = 20;
+const increment = 10;  // Right now I am just having it so that every time you click the class button the
+//progress increases by 10, but this is only temporary
+
+
+function completeClass() {
+ const elem = document.getElementById("myBar");
+
+
+ // this is a check to make sure the progress is under 100
+ if (progress < 100) {
+   progress += increment;
+   // This checks to make sure the progress bar does not go over 100
+   if (progress > 100) progress = 100;
+
+
+   // Updating progress bar accordingly
+   elem.style.width = progress + '%';
+   elem.innerHTML = progress + '%';
+
+
+   // This is just giving an alert whenenver we have reached 100 percent
+   //will probably get rid of this later as this is fill in code
+   if (progress === 100) {
+     alert("Congratulations! You have completed all classes needed to graduate!");
+   }
+ }
+}
+</script>
+
+
+</body>
+</html>
