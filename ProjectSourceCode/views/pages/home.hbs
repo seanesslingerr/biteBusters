@@ -54,12 +54,11 @@
         <div class="card">
           <div class="card-header">Current Semester GPA</div>
           <div class="card-body">
-            <p>*insert GPA here*</p>
+            {{#each GPAfind}}
+            <p>{{gpa}}</p>/4.000
+            {{/each}}
           </div>
         </div>
-              Test: {{username}}
-      Test 2:
-           Foo
 
         <!-- Your Classes Section -->
         <div class="card">
@@ -87,7 +86,7 @@
           <div class="card-header">CU Boulder Email</div>
           <div class="card-body">
             <p>Your CU Boulder mailhome is: Exchange</p>
-            <p>Log in with ______ and your IdentiKey password.</p>
+            <p>Log in with {{user.email}} and your IdentiKey password.</p>
             <button class="btn btn-custom">Log In to Exchange</button>
           </div>
         </div>

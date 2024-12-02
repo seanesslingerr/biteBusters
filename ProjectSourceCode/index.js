@@ -28,6 +28,10 @@ function scraper(loc) {
     let lineNo = 1
     let leftRows = 5;
     let fill = 0
+    let GPArow = false; 
+    let GPA = 0;
+    let firstGPA=true;
+
     const usefullRows = ["", "", "", ""];
     for (let i = 0; i < data.length; i++) {
       // If the line terminator is not found than keep adding chars to the line
@@ -66,6 +70,17 @@ function scraper(loc) {
       if (line === '											<tbody><tr class="takenCourse ">') {
         leftRows = 4;
       }
+      if (GPArow === true){
+        GPArow=false;
+        GPA = line.slice(45,50);
+        console.log("GPA::", GPA);
+      }
+      if (line === '                    		<td class="pointslabel fieldlabel">POINTS</td>'&& firstGPA === true) {
+        GPArow=true;
+        firstGPA=false;
+      }
+    
+
       // end of loop housekeeping
       lineNo = lineNo  + 1;
           line = "";
@@ -74,7 +89,7 @@ function scraper(loc) {
   //});
   console.log(semester);
 
-  return [semester, number, credits, grade, fill];
+  return [semester, number, credits, grade, fill, GPA];
 }
 
 
@@ -92,26 +107,15 @@ const student_courses = `
 
   ORDER BY classes.class_code ASC;`;
 
-const all_courses = `
-  SELECT
-    classes.class_code,
-    classes.course_name,
-    classes.credit_hours,
-    CASE
-    WHEN
-    classes.class_code IN (
-      SELECT student_courses.class_code
-      FROM student_courses
-      WHERE student_courses.student_id = $1
-    ) THEN TRUE
-    ELSE FALSE
-    END
-    AS "taken"
-  FROM
-    courses
-  ORDER BY courses.course_id ASC;
-  `;
 
+  const getGPA = `
+  SELECT
+  GPA,
+  username,
+  password
+  FROM users
+  WHERE username = $1
+  ORDER BY username ASC LIMIT 1;`;
 
 // *****************************************************
 // <!-- Section 2 : Connect to DB -->
@@ -194,8 +198,12 @@ app.get('/home', async (req, res) =>{
   const user = req.session.user
   console.log(user);
   const classes = await db.any(student_courses, [user.username]);
-  res.render('pages/home', {user, classes})
-  
+  const GPAfind = await db.any(getGPA, [user.username]);
+  const usertest = await db.any("SELECT * FROM users");
+  console.log("usertest:", usertest)
+  console.log("GPA array:", GPAfind[0])
+  console.log("GPA found:", GPAfind.gpa)
+  res.render('pages/home', {user, classes, GPAfind})
 });
 
 app.get('/login', (req, res) =>{
@@ -338,16 +346,17 @@ app.post('/fileupload', async (req, res) => {
   console.log("test123");
   var form = new formidable.IncomingForm();
   form.parse(req, function (err, fields, files) {
-    [semester, number, credits, grade, sz] = scraper(files.filetoupload[0].filepath);
+    [semester, number, credits, grade, sz, GPA] = scraper(files.filetoupload[0].filepath);
     console.log(semester);
+    const update = db.any("UPDATE users SET GPA = $1 WHERE username = $2", [GPA, req.session.user.username]);
     for (let i = 0; i < sz; i++) {
       const update = db.any("INSERT INTO users_to_classes (username, class_code, grade, semester) VALUES ($1, $2, $3, $4);", [req.session.user.username, number[i], grade[i], semester[i]]);
       
     }
-    
     // Loosely inspired by: https://www.w3schools.com/nodejs/nodejs_uploadfiles.asp
     });
     res.redirect('/home');
+
 
 });
 
