@@ -67,13 +67,12 @@ function scraper(loc) {
           }
         }
       // The line is the line right above the info we need about a class, it start the process of reading in the data
-      if (line === '											<tbody><tr class="takenCourse ">') {
+      if (line.slice(1,40) === '											<tbody><tr class="takenCourse ">'.slice(1,40) ) {
         leftRows = 4;
       }
       if (GPArow === true){
         GPArow=false;
         GPA = line.slice(45,50);
-        console.log("GPA::", GPA);
       }
       if (line === '                    		<td class="pointslabel fieldlabel">POINTS</td>'&& firstGPA === true) {
         GPArow=true;
@@ -87,7 +86,7 @@ function scraper(loc) {
       }
     } 
   //});
-  console.log(semester);
+  console.log(number);
 
   return [semester, number, credits, grade, fill, GPA];
 }
@@ -99,6 +98,7 @@ const student_courses = `
     classes.credit_hours,
     classes.name,
     classes.description,
+    users_to_classes.current,
     users_to_classes.username
   FROM
     classes
@@ -194,7 +194,6 @@ const auth = (req, res, next) => {
 
 
 app.get('/home', async (req, res) =>{
-
   const user = req.session.user
   console.log(user);
   const classes = await db.any(student_courses, [user.username]);
@@ -348,9 +347,16 @@ app.post('/fileupload', async (req, res) => {
   form.parse(req, function (err, fields, files) {
     [semester, number, credits, grade, sz, GPA] = scraper(files.filetoupload[0].filepath);
     console.log(semester);
+    let curr = "";
     const update = db.any("UPDATE users SET GPA = $1 WHERE username = $2", [GPA, req.session.user.username]);
     for (let i = 0; i < sz; i++) {
-      const update = db.any("INSERT INTO users_to_classes (username, class_code, grade, semester) VALUES ($1, $2, $3, $4);", [req.session.user.username, number[i], grade[i], semester[i]]);
+      if (semester[i] === 'FA24') {
+        curr = 1;
+      }
+      else {
+        curr = null;
+      }
+      const update = db.any("INSERT INTO users_to_classes (username, class_code, grade, semester, current) VALUES ($1, $2, $3, $4, $5);", [req.session.user.username, number[i], grade[i], semester[i], curr]);
       
     }
     // Loosely inspired by: https://www.w3schools.com/nodejs/nodejs_uploadfiles.asp
