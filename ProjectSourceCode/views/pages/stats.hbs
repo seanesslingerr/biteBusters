@@ -63,7 +63,12 @@ body {
 </head>
 <body>
   <h1>Class Statistics</h1>
-    {{#each results}}
+    {{#each foundResults}}
+        <p>{{this.code}} - {{this.data.[0].grade}}</p>
+    {{else}}
+        <p>No results available.</p>
+    {{/each}}
+    {{#each coreResults}}
         <p>{{this.code}} - {{this.data.[0].grade}}</p>
     {{else}}
         <p>No results available.</p>

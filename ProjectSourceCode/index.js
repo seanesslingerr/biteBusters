@@ -239,19 +239,43 @@ const classStat = 'SELECT * FROM users_to_classes WHERE username = $1 AND class_
 app.get('/stats', async (req, res) => {
   const user = req.session.user;
   const foundationCode = ['CSCI1000', 'CSCI1300', 'CSCI2270', 'CSCI2400', 'CSCI3104', 'CSCI3155', 'CSCI3308'];
-  let results = [];
+  let foundResults = [];
 
   for (let i = 0; i < foundationCode.length; i++) {
       const classSelect = await db.any(classStat, [user.username, foundationCode[i]]);
-      results.push({
+      if (!classSelect.length) {
+        foundResults.push({
+          code: foundationCode[i],
+          data: [{ grade: 'N/A' }]
+        });
+      } else {
+        // If data is found, push it normally
+        foundResults.push({
           code: foundationCode[i],
           data: classSelect
+        });
+      }
+  }
+
+  const coreCode = ['CSCI3002', 'CSCI3202', 'CSCI3287', 'CSCI3302', 'CSCI3403', 'CSCI3434', 'CSCI3656',
+                    'CSCI3753', 'CSCI4022', 'CSCI4273', 'CSCI4448'];
+  let coreResults = [];
+  for (let i = 0; i < coreCode.length; i++) {
+    const classSelect = await db.any(classStat, [user.username, coreCode[i]]);
+    if (!classSelect.length) {
+      coreResults.push({
+        code: coreCode[i],
+        data: [{ grade: 'N/A' }]
       });
+    } else {
+      // If data is found, push it normally
+      coreResults.push({
+        code: coreCode[i],
+        data: classSelect
+      });
+    }
   }
-  for(let i = 0; i < results.length; i++){
-    console.log(results[i].data);
-  }
-  res.render('pages/stats', {results});
+  res.render('pages/stats', {foundResults, coreResults});
 });
 
 app.get('/logout', (req, res) =>{
