@@ -6,25 +6,24 @@
 <title>Class Information Table Carousel</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
-/* background and other styling */
+/* Origional styling of what stats was earlier. I just implemened a Carousel into this */
 body {
- font-family: 'Georgia', 'Times New Roman', serif;
+ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
  background-image: url('https://img.freepik.com/free-photo/abstract-luxury-light-cream-beige-brown-like-cotton-silk-texture-pattern-background_1258-63643.jpg?semt=ais_hybrid');
  background-size: cover;
+ background-position: center;
+ color: #fff;
+ margin: 0;
  padding: 40px;
 }
-
-/* Styling for title */
 .title {
  text-align: center;
  font-size: 42px;
  font-weight: bold;
  margin-bottom: 30px;
  color: black;
- font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+ text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
-
-/* Styling for containers */
 .table-container {
  background-color: rgba(0, 0, 0, 0.6);
  padding: 20px;
@@ -37,7 +36,6 @@ body {
 .table {
  width: 100%;
  border-collapse: collapse;
- font-family: 'Georgia', 'Times New Roman', serif;
 }
 .table thead {
  background-color: #333;
@@ -50,28 +48,122 @@ body {
  text-align: left;
  border-bottom: 2px solid #f4c542;
 }
-
-/* Proper spacing for containers */
+.table tbody tr {
+ background-color: #444;
+ transition: background-color 0.3s;
+}
+.table tbody tr:nth-child(even) {
+ background-color: #555;
+}
 .table tbody td {
  padding: 12px;
  border-bottom: 1px solid #f4c542;
  text-align: left;
  font-size: 14px;
- font-family: 'Georgia', 'Times New Roman', serif;
+}
+@media (max-width: 768px) {
+ .table-container {
+   width: 100%;
+   padding: 10px;
+ }
+ .title {
+   font-size: 32px;
+ }
+ .table thead th, .table tbody td {
+   font-size: 14px;
+   padding: 8px;
+ }
 }
 </style>
 </head>
 <body>
-  <h1>Class Statistics</h1>
-    {{#each foundResults}}
-        <p>{{this.code}} - {{this.data.[0].grade}}</p>
-    {{else}}
-        <p>No results available.</p>
-    {{/each}}
-    {{#each coreResults}}
-        <p>{{this.code}} - {{this.data.[0].grade}}</p>
-    {{else}}
-        <p>No results available.</p>
-    {{/each}}
+
+
+
+
+<!-- Title Section -->
+<div class="title">Stats for Computer Science Core Classes</div>
+
+
+
+
+<!-- Bootstrap Carousel -->
+<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <!-- First carousel slide -->
+    <div class="carousel-item active">
+      <div class="table-container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Class</th>
+              <th scope="col">Completed</th>
+              <th scope="col">Grade in the Class</th>
+              <th scope="col">Prerequisites for the Class</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each foundResults}}
+              <tr>
+                <td>{{this.code}}</td>
+                <td>{{this.data.[0].completed}}</td>
+                <td>{{this.data.[0].grade}}</td>
+                <td>{{this.data.[0].prerequisites}}</td>
+              </tr>
+            {{else}}
+              <tr><td colspan="4">No results available.</td></tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Second carousel slide -->
+    <div class="carousel-item">
+      <div class="table-container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Class</th>
+              <th scope="col">Completed</th>
+              <th scope="col">Grade in the Class</th>
+              <th scope="col">Prerequisites for the Class</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each coreResults}}
+              <tr>
+                <td>{{this.code}}</td>
+                <td>{{this.data.[0].completed}}</td>
+                <td>{{this.data.[0].grade}}</td>
+                <td>{{this.data.[0].prerequisites}}</td>
+              </tr>
+            {{else}}
+              <tr><td colspan="4">No results available.</td></tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+
+
+<!-- Carousel Controls - got via bootsrap -->
+<button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+  <span class="visually-hidden">Previous</span>
+</button>
+<button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+  <span class="visually-hidden">Next</span>
+</button>
+</div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
