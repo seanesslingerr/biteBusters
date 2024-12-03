@@ -12,6 +12,7 @@ const session = require('express-session'); // To set the session object. To sto
 const bcrypt = require('bcryptjs'); // To hash passwords
 const axios = require('axios'); // To make HTTP requests from our server. We'll learn more about it in Part C.
 app.use(express.static('public'));
+app.use(express.static('ProjectSourceCode'));
 var formidable = require('formidable');
 
 function scraper(loc) {
@@ -217,7 +218,7 @@ app.get('/home', async (req, res) =>{
   const usertest = await db.any("SELECT * FROM users");
   console.log("usertest:", usertest)
   console.log("GPA array:", GPAfind[0])
-  console.log("GPA found:", GPAfind.gpa)
+  console.log("GPA found:", GPAfind[0].gpa)
   res.render('pages/home', {user, classes, GPAfind})
 });
 
@@ -233,8 +234,48 @@ app.get('/register', (req, res) =>{
 
 app.use('/stats', auth);
 
+const classStat = 'SELECT * FROM users_to_classes WHERE username = $1 AND class_code = $2 LIMIT 1';
+
 app.get('/stats', async (req, res) => {
-    res.render('pages/stats');
+  const user = req.session.user;
+  const foundationCode = ['CSCI1000', 'CSCI1300', 'CSCI2270', 'CSCI2400', 'CSCI3104', 'CSCI3155', 'CSCI3308'];
+  let foundResults = [];
+
+  for (let i = 0; i < foundationCode.length; i++) {
+      const classSelect = await db.any(classStat, [user.username, foundationCode[i]]);
+      if (!classSelect.length) {
+        foundResults.push({
+          code: foundationCode[i],
+          data: [{ grade: 'N/A' }]
+        });
+      } else {
+        // If data is found, push it normally
+        foundResults.push({
+          code: foundationCode[i],
+          data: classSelect
+        });
+      }
+  }
+
+  const coreCode = ['CSCI3002', 'CSCI3202', 'CSCI3287', 'CSCI3302', 'CSCI3403', 'CSCI3434', 'CSCI3656',
+                    'CSCI3753', 'CSCI4022', 'CSCI4273', 'CSCI4448'];
+  let coreResults = [];
+  for (let i = 0; i < coreCode.length; i++) {
+    const classSelect = await db.any(classStat, [user.username, coreCode[i]]);
+    if (!classSelect.length) {
+      coreResults.push({
+        code: coreCode[i],
+        data: [{ grade: 'N/A' }]
+      });
+    } else {
+      // If data is found, push it normally
+      coreResults.push({
+        code: coreCode[i],
+        data: classSelect
+      });
+    }
+  }
+  res.render('pages/stats', {foundResults, coreResults});
 });
 
 app.get('/logout', (req, res) =>{
@@ -382,6 +423,7 @@ app.post('/fileupload', async (req, res) => {
 
 
 });
+
 
 //Server Testing
 /*app.listen(3000, '0.0.0.0', () => {
