@@ -265,7 +265,7 @@ app.get('/stats', async (req, res) => {
     if (!classSelect.length) {
       coreResults.push({
         code: coreCode[i],
-        data: [{ grade: 'N/A',semester: 'N/A'}]
+        data: [{ grade: 'N/A', semester: 'N/A'}]
       });
     } else {
       // If data is found, push it normally

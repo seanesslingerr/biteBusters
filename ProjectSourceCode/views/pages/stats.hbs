@@ -147,6 +147,108 @@ body {
         </table>
       </div>
     </div>
+  
+    <div class="carousel-item">
+      <div class="table-container">
+        <h1>Calculus Requirements</h1>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Class</th>
+              <th scope="col">Completed</th>
+              <th scope="col">Grade in the Class</th>
+              <th scope="col">Prerequisites for the Class</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each calcResults}}
+              <tr>
+                <td>{{this.code}}</td>
+                <td>{{this.data.[0].semester}}</td>
+                <td>{{this.data.[0].grade}}</td>
+                <td>{{this.data.[0].prerequisites}}</td>
+              </tr>
+            {{else}}
+              <tr><td colspan="4">No results available.</td></tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div><div class="table-container">
+        <h1>Discrete Requirements</h1>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Class</th>
+              <th scope="col">Completed</th>
+              <th scope="col">Grade in the Class</th>
+              <th scope="col">Prerequisites for the Class</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each discResults}}
+              <tr>
+                <td>{{this.code}}</td>
+                <td>{{this.data.[0].semester}}</td>
+                <td>{{this.data.[0].grade}}</td>
+                <td>{{this.data.[0].prerequisites}}</td>
+              </tr>
+            {{else}}
+              <tr><td colspan="4">No results available.</td></tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+      <div class="table-container">
+        <h1>Linear Algebra Requirements</h1>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Class</th>
+              <th scope="col">Completed</th>
+              <th scope="col">Grade in the Class</th>
+              <th scope="col">Prerequisites for the Class</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each linResults}}
+              <tr>
+                <td>{{this.code}}</td>
+                <td>{{this.data.[0].semester}}</td>
+                <td>{{this.data.[0].grade}}</td>
+                <td>{{this.data.[0].prerequisites}}</td>
+              </tr>
+            {{else}}
+              <tr><td colspan="4">No results available.</td></tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+      <div class="table-container">
+        <h1>Statistics Requirements</h1>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Class</th>
+              <th scope="col">Completed</th>
+              <th scope="col">Grade in the Class</th>
+              <th scope="col">Prerequisites for the Class</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each statResults}}
+              <tr>
+                <td>{{this.code}}</td>
+                <td>{{this.data.[0].semester}}</td>
+                <td>{{this.data.[0].grade}}</td>
+                <td>{{this.data.[0].prerequisites}}</td>
+              </tr>
+            {{else}}
+              <tr><td colspan="4">No results available.</td></tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 
 
