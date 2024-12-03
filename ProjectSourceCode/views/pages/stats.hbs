@@ -93,6 +93,7 @@ body {
     <!-- First carousel slide -->
     <div class="carousel-item active">
       <div class="table-container">
+        <h1>Foundation Classes</h1>
         <table class="table">
           <thead>
             <tr>
@@ -106,7 +107,7 @@ body {
             {{#each foundResults}}
               <tr>
                 <td>{{this.code}}</td>
-                <td>{{this.data.[0].completed}}</td>
+                <td>{{this.data.[0].semester}}</td>
                 <td>{{this.data.[0].grade}}</td>
                 <td>{{this.data.[0].prerequisites}}</td>
               </tr>
@@ -121,6 +122,7 @@ body {
     <!-- Second carousel slide -->
     <div class="carousel-item">
       <div class="table-container">
+        <h1>Core Classes</h1>
         <table class="table">
           <thead>
             <tr>
@@ -134,7 +136,7 @@ body {
             {{#each coreResults}}
               <tr>
                 <td>{{this.code}}</td>
-                <td>{{this.data.[0].completed}}</td>
+                <td>{{this.data.[0].semester}}</td>
                 <td>{{this.data.[0].grade}}</td>
                 <td>{{this.data.[0].prerequisites}}</td>
               </tr>
