@@ -62,92 +62,11 @@ body {
 </style>
 </head>
 <body>
-
-<!-- Title Section -->
-<div class="title">Stats for Computer Science Classes</div>
-
-<!-- Bootstrap Carousel -->
-<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-<div class="carousel-inner">
- <!-- First carousel slide -->
-  <div class="carousel-item active">
-    <div class="table-container">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Class</th>
-            <th scope="col">Completed</th>
-            <th scope="col">Grade in the Class</th>
-            <th scope="col">Prerequisites for the Class</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Class #1</td><td>NA</td><td>NA</td><td>NA</td></tr>
-          <tr><td>Class #2</td><td>NA</td><td>NA</td><td>NA</td></tr>
-          <tr><td>Class #3</td><td>NA</td><td>NA</td><td>NA</td></tr>
-          <tr><td>Class #4</td><td>NA</td><td>NA</td><td>NA</td></tr>
-          <tr><td>Class #5</td><td>NA</td><td>NA</td><td>NA</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <!-- Second carousel slide -->
-  <div class="carousel-item">
-    <div class="table-container">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Class</th>
-            <th scope="col">Completed</th>
-            <th scope="col">Grade in the Class</th>
-            <th scope="col">Prerequisites for the Class</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Class #1</td><td>NA</td><td>NA</td><td>NA</td></tr>
-          <tr><td>Class #2</td><td>NA</td><td>NA</td><td>NA</td></tr>
-          <tr><td>Class #3</td><td>NA</td><td>NA</td><td>NA</td></tr>
-          <tr><td>Class #4</td><td>NA</td><td>NA</td><td>NA</td></tr>
-          <tr><td>Class #5</td><td>NA</td><td>NA</td><td>NA</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <!-- Third carousel slide -->
-  <div class="carousel-item">
-    <div class="table-container">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Class</th>
-            <th scope="col">Completed</th>
-            <th scope="col">Grade in the Class</th>
-            <th scope="col">Prerequisites for the Class</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Class #1</td><td>NA</td><td>NA</td><td>NA</td></tr>
-          <tr><td>Class #2</td><td>NA</td><td>NA</td><td>NA</td></tr>
-          <tr><td>Class #3</td><td>NA</td><td>NA</td><td>NA</td></tr>
-          <tr><td>Class #4</td><td>NA</td><td>NA</td><td>NA</td></tr>
-          <tr><td>Class #5</td><td>NA</td><td>NA</td><td>NA</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
-<!-- Carousel Controls -->
-<button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-  <span class="visually-hidden">Previous</span>
-</button>
-<button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-  <span class="visually-hidden">Next</span>
-</button>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <h1>Class Statistics</h1>
+    {{#each results}}
+        <p>{{this.code}} - {{this.data.[0].grade}}</p>
+    {{else}}
+        <p>No results available.</p>
+    {{/each}}
 </body>
 </html>
