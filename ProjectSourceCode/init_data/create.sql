@@ -12,7 +12,7 @@ CREATE TABLE classes(
     class_code VARCHAR(9) PRIMARY KEY,
     credit_hours INTEGER,
     name CHAR(60) NOT NULL,
-    description VARCHAR(500)
+    prereq VARCHAR(500)
 );
 
 CREATE TABLE users_to_classes(

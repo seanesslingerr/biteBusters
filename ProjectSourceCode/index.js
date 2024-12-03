@@ -117,7 +117,7 @@ const student_courses = `
     classes.class_code,
     classes.credit_hours,
     classes.name,
-    classes.description,
+    classes.prereq,
     users_to_classes.current,
     users_to_classes.username
   FROM
@@ -235,7 +235,7 @@ app.get('/register', (req, res) =>{
 app.use('/stats', auth);
 
 const classStat = 'SELECT * FROM users_to_classes WHERE username = $1 AND class_code = $2 LIMIT 1';
-
+const findCredit = 'SELECT credit_hours, prereq FROM classes WHERE class_code = $1';
 app.get('/stats', async (req, res) => {
   const user = req.session.user;
   const foundationCode = ['CSCI1000', 'CSCI1300', 'CSCI2270', 'CSCI2400', 'CSCI3104', 'CSCI3155', 'CSCI3308'];
@@ -243,16 +243,18 @@ app.get('/stats', async (req, res) => {
 
   for (let i = 0; i < foundationCode.length; i++) {
       const classSelect = await db.any(classStat, [user.username, foundationCode[i]]);
+      const creditHours = await db.any(findCredit, [foundationCode[i]])
       if (!classSelect.length) {
         foundResults.push({
           code: foundationCode[i],
-          data: [{ grade: 'N/A', semester: 'N/A'}]
+          data: [{ grade: 'N/A', semester: '-'}],
+          hours: creditHours
         });
       } else {
-        // If data is found, push it normally
         foundResults.push({
           code: foundationCode[i],
-          data: classSelect
+          data: classSelect,
+          hours: creditHours
         });
       }
   }
@@ -262,20 +264,103 @@ app.get('/stats', async (req, res) => {
   let coreResults = [];
   for (let i = 0; i < coreCode.length; i++) {
     const classSelect = await db.any(classStat, [user.username, coreCode[i]]);
+    const creditHours = await db.any(findCredit, [coreCode[i]]);
     if (!classSelect.length) {
       coreResults.push({
         code: coreCode[i],
-        data: [{ grade: 'N/A', semester: 'N/A'}]
+        data: [{ grade: 'N/A', semester: '-'}],
+        hours: creditHours
       });
     } else {
-      // If data is found, push it normally
       coreResults.push({
         code: coreCode[i],
-        data: classSelect
+        data: classSelect,
+        hours: creditHours
       });
     }
   }
-  res.render('pages/stats', {foundResults, coreResults});
+
+  const calcCode = ['MATH1300', 'APPM1350', 'MATH2300', 'APPM1360'];
+  let calcResults = [];
+  for (let i = 0; i < calcCode.length; i++) {
+    const classSelect = await db.any(classStat, [user.username, calcCode[i]]);
+    const creditHours = await db.any(findCredit, [calcCode[i]]);
+    if (!classSelect.length) {
+      calcResults.push({
+        code: calcCode[i],
+        data: [{ grade: 'N/A', semester: '-'}],
+        hours: creditHours
+      });
+    } else {
+      calcResults.push({
+        code: calcCode[i],
+        data: classSelect,
+        hours: creditHours
+      });
+    }
+  }
+
+  const linCode = ['CSCI2820', 'MATH2130', 'APPM3310'];
+  let linResults = [];
+  for (let i = 0; i < linCode.length; i++) {
+    const classSelect = await db.any(classStat, [user.username, linCode[i]]);
+    const creditHours = await db.any(findCredit, [linCode[i]]);
+    if (!classSelect.length) {
+      linResults.push({
+        code: linCode[i],
+        data: [{ grade: 'N/A', semester: '-'}],
+        hours: creditHours
+      });
+    } else {
+      linResults.push({
+        code: linCode[i],
+        data: classSelect,
+        hours: creditHours
+      });
+    }
+  }
+
+  const discCode = ['CSCI2824', 'ECEN2703', 'APPM3170', 'MATH2001'];
+  let discResults = [];
+  for (let i = 0; i < discCode.length; i++) {
+    const classSelect = await db.any(classStat, [user.username, discCode[i]]);
+    const creditHours = await db.any(findCredit, [discCode[i]]);
+    if (!classSelect.length) {
+      discResults.push({
+        code: discCode[i],
+        data: [{ grade: 'N/A', semester: '-'}],
+        hours: creditHours
+      });
+    } else {
+      discResults.push({
+        code: discCode[i],
+        data: classSelect,
+        hours: creditHours
+      });
+    }
+  }
+
+  const statCode = ['APPM3570', 'CSCI3022', 'MATH3510', 'ECEN3810', 'ECON3818']
+  let statResults = [];
+  for (let i = 0; i < statCode.length; i++) {
+    const classSelect = await db.any(classStat, [user.username, statCode[i]]);
+    const creditHours = await db.any(findCredit, [statCode[i]]);
+    if (!classSelect.length) {
+      statResults.push({
+        code: statCode[i],
+        data: [{ grade: 'N/A', semester: '-'}],
+        hours: creditHours
+      });
+    } else {
+      statResults.push({
+        code: statCode[i],
+        data: classSelect,
+        hours: creditHours
+      });
+    }
+  }
+
+  res.render('pages/stats', {foundResults, coreResults, calcResults, linResults, discResults, statResults});
 });
 
 app.get('/logout', (req, res) =>{

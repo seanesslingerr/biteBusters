@@ -93,13 +93,14 @@ body {
     <!-- First carousel slide -->
     <div class="carousel-item active">
       <div class="table-container">
-        <h1>Foundation Classes</h1>
+        <h1>Foundation Classes (complete all)</h1>
         <table class="table">
           <thead>
             <tr>
               <th scope="col">Class</th>
               <th scope="col">Completed</th>
               <th scope="col">Grade in the Class</th>
+              <th scope="col">Credit Hours</th>
               <th scope="col">Prerequisites for the Class</th>
             </tr>
           </thead>
@@ -109,7 +110,8 @@ body {
                 <td>{{this.code}}</td>
                 <td>{{this.data.[0].semester}}</td>
                 <td>{{this.data.[0].grade}}</td>
-                <td>{{this.data.[0].prerequisites}}</td>
+                <td>{{this.hours.[0].credit_hours}}</td>
+                <td>{{this.hours.[0].prereq}}</td>
               </tr>
             {{else}}
               <tr><td colspan="4">No results available.</td></tr>
@@ -122,13 +124,14 @@ body {
     <!-- Second carousel slide -->
     <div class="carousel-item">
       <div class="table-container">
-        <h1>Core Classes</h1>
+        <h1>Core Classes (complete five)</h1>
         <table class="table">
           <thead>
             <tr>
               <th scope="col">Class</th>
               <th scope="col">Completed</th>
               <th scope="col">Grade in the Class</th>
+              <th scope="col">Credit Hours</th>
               <th scope="col">Prerequisites for the Class</th>
             </tr>
           </thead>
@@ -138,7 +141,8 @@ body {
                 <td>{{this.code}}</td>
                 <td>{{this.data.[0].semester}}</td>
                 <td>{{this.data.[0].grade}}</td>
-                <td>{{this.data.[0].prerequisites}}</td>
+                <td>{{this.hours.[0].credit_hours}}</td>
+                <td>{{this.hours.[0].prereq}}</td>
               </tr>
             {{else}}
               <tr><td colspan="4">No results available.</td></tr>
@@ -147,16 +151,17 @@ body {
         </table>
       </div>
     </div>
-  
+
     <div class="carousel-item">
       <div class="table-container">
-        <h1>Calculus Requirements</h1>
+        <h1>Calculus Classes</h1>
         <table class="table">
           <thead>
             <tr>
               <th scope="col">Class</th>
               <th scope="col">Completed</th>
               <th scope="col">Grade in the Class</th>
+              <th scope="col">Credit Hours</th>
               <th scope="col">Prerequisites for the Class</th>
             </tr>
           </thead>
@@ -166,31 +171,8 @@ body {
                 <td>{{this.code}}</td>
                 <td>{{this.data.[0].semester}}</td>
                 <td>{{this.data.[0].grade}}</td>
-                <td>{{this.data.[0].prerequisites}}</td>
-              </tr>
-            {{else}}
-              <tr><td colspan="4">No results available.</td></tr>
-            {{/each}}
-          </tbody>
-        </table>
-      </div><div class="table-container">
-        <h1>Discrete Requirements</h1>
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Class</th>
-              <th scope="col">Completed</th>
-              <th scope="col">Grade in the Class</th>
-              <th scope="col">Prerequisites for the Class</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each discResults}}
-              <tr>
-                <td>{{this.code}}</td>
-                <td>{{this.data.[0].semester}}</td>
-                <td>{{this.data.[0].grade}}</td>
-                <td>{{this.data.[0].prerequisites}}</td>
+                <td>{{this.hours.[0].credit_hours}}</td>
+                <td>{{this.hours.[0].prereq}}</td>
               </tr>
             {{else}}
               <tr><td colspan="4">No results available.</td></tr>
@@ -199,13 +181,14 @@ body {
         </table>
       </div>
       <div class="table-container">
-        <h1>Linear Algebra Requirements</h1>
+        <h1>Linear Algebra Classes (complete one)</h1>
         <table class="table">
           <thead>
             <tr>
               <th scope="col">Class</th>
               <th scope="col">Completed</th>
               <th scope="col">Grade in the Class</th>
+              <th scope="col">Credit Hours</th>
               <th scope="col">Prerequisites for the Class</th>
             </tr>
           </thead>
@@ -215,7 +198,37 @@ body {
                 <td>{{this.code}}</td>
                 <td>{{this.data.[0].semester}}</td>
                 <td>{{this.data.[0].grade}}</td>
-                <td>{{this.data.[0].prerequisites}}</td>
+                <td>{{this.hours.[0].credit_hours}}</td>
+                <td>{{this.hours.[0].prereq}}</td>
+              </tr>
+            {{else}}
+              <tr><td colspan="4">No results available.</td></tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="table-container">
+        <h1>Discrete Classes (complete one)</h1>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Class</th>
+              <th scope="col">Completed</th>
+              <th scope="col">Grade in the Class</th>
+              <th scope="col">Credit Hours</th>
+              <th scope="col">Prerequisites for the Class</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each discResults}}
+              <tr>
+                <td>{{this.code}}</td>
+                <td>{{this.data.[0].semester}}</td>
+                <td>{{this.data.[0].grade}}</td>
+                <td>{{this.hours.[0].credit_hours}}</td>
+                <td>{{this.hours.[0].prereq}}</td>
               </tr>
             {{else}}
               <tr><td colspan="4">No results available.</td></tr>
@@ -224,13 +237,14 @@ body {
         </table>
       </div>
       <div class="table-container">
-        <h1>Statistics Requirements</h1>
+        <h1>Statistics Classes (complete one)</h1>
         <table class="table">
           <thead>
             <tr>
               <th scope="col">Class</th>
               <th scope="col">Completed</th>
               <th scope="col">Grade in the Class</th>
+              <th scope="col">Credit Hours</th>
               <th scope="col">Prerequisites for the Class</th>
             </tr>
           </thead>
@@ -240,7 +254,8 @@ body {
                 <td>{{this.code}}</td>
                 <td>{{this.data.[0].semester}}</td>
                 <td>{{this.data.[0].grade}}</td>
-                <td>{{this.data.[0].prerequisites}}</td>
+                <td>{{this.hours.[0].credit_hours}}</td>
+                <td>{{this.hours.[0].prereq}}</td>
               </tr>
             {{else}}
               <tr><td colspan="4">No results available.</td></tr>
