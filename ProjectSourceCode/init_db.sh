@@ -2,11 +2,9 @@
 # DO NOT PUSH THIS FILE TO GITHUB
 # This file contains sensitive information and should be kept private
 # TODO: Set your PostgreSQL URI - Use the External Database URL from the Render dashboard
-PG_URI="postgresql://exampleuser:M0ZifhV2XNYoYfIfe67IRkiYmdySqCJ4@dpg-ct7o4qaj1k6c73ckasj0-a.oregon-postgres.render.com/users_db_hqey"
+PG_URI="postgresql://users_db_kx0w_user:ESS62716WryEzDJW9tWxiH7FhToAuc9p@dpg-ct8cih1u0jms73e9vdug-a.oregon-postgres.render.com/users_db_kx0w"
 # Execute each .sql file in the directory
-for file in ProjectSourceCode/init_data/*.sql; do
+for file in ProjectSourceCode/src/init_data/*.sql; do
     echo "Executing $file..."
     psql $PG_URI -f "$file"
 done
-
-
