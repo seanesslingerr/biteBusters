@@ -151,7 +151,7 @@ app.use(express.static(path.join(__dirname, 'resources')));*/
 
 // database configuration
 const dbConfig = {
-host: 'db', // the database server
+host: process.env.POSTGRES_HOST, // the database server
 port: 5432, // the database port
 database: process.env.POSTGRES_DB, // the database name
 user: process.env.POSTGRES_USER, // the user account to connect with
@@ -395,15 +395,15 @@ app.post('/register', async (req, res) =>{
     return res.status(400).json({ message: 'Invalid input' });
   }
 //takes input and adds 4 rng numbers  ----------------------------------------------------------   EDITED
-  //const n1 = Math. floor(Math. random()*10);
-  //const n2 = Math. floor(Math. random()*10);
-  //const n3 = Math. floor(Math. random()*10);
-  //const n4 = Math. floor(Math. random()*10);
+  const n1 = Math. floor(Math. random()*10);
+  const n2 = Math. floor(Math. random()*10);
+  const n3 = Math. floor(Math. random()*10);
+  const n4 = Math. floor(Math. random()*10);
 
-  const n1 = 1;
-  const n2 = 1;
-  const n3 = 1;
-  const n4 = 1;
+  // const n1 = 1;
+  // const n2 = 1;
+  // const n3 = 1;
+  // const n4 = 1;
   console.log('numbers:', n1, n2, n3, n4);
   //tests wether or not 2 letters of first name and 2 of last PLUS 4 rng numbers is a unique identikey
   const username = fN2 + lN2 + n1 + n2 + n3 + n4;
