@@ -40,8 +40,28 @@
       background-color: #333;
       color: white;
     }
-      #navbar a.navbar-brand, #navbar a.nav-link {
+    #navbar a.navbar-brand, #navbar a.nav-link {
       color: white;
+    }
+
+    /* New GPA and Credit Hours Styling */
+    .gpa-container, .hours-container {
+      text-align: center;
+      margin: 15px 0;
+    }
+    .gpa-value, .hours-value {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    .gpa-value {
+      color: #007bff; /* Highlighted color for GPA */
+    }
+    .hours-value {
+      color: #28a745; /* Highlighted color for Credit Hours */
+    }
+    .gpa-total, .hours-total {
+      font-size: 1.2rem;
+      color: #666;
     }
   </style>
 </head>
@@ -55,12 +75,12 @@
           <div class="card-header">Current Semester GPA</div>
           <div class="card-body">
             {{#each GPAfind}}
-            <p>{{gpa}}</p>/4.000
-            {{/each}}
-            
-            HOURS VALUE:
-            {{#each GPAfind}}
-            <p>{{hours}}</p>/120
+            <div class="gpa-container">
+              <span class="gpa-value">{{gpa}}</span><span class="gpa-total"> / 4.000</span>
+            </div>
+            <div class="hours-container">
+              <span class="hours-value">{{hours}}</span><span class="hours-total"> / 120</span>
+            </div>
             {{/each}}
           </div>
         </div>
@@ -72,13 +92,13 @@
             {{#each classes}}
             {{#if current}}
               <p>{{class_code}} - {{name}}</p>
-              {{/if}}
-              {{/each}}
-              Past Classes
-              {{#each classes}}
+            {{/if}}
+            {{/each}}
+            <strong>Past Classes</strong>
+            {{#each classes}}
             {{#unless current}}
               <p>{{class_code}} - {{name}}</p>
-              {{/unless}}
+            {{/unless}}
             {{/each}}
           </div>
         </div>
@@ -89,7 +109,7 @@
         <div class="card">
           <div class="card-header bg-custom text-white"></div>
           <div class="card-body">
-            <p>Interetsed in classes next semster? Click on the link below to take a look!</p>
+            <p>Interested in classes next semester? Click on the link below to take a look!</p>
             <button class="btn btn-custom" onclick="window.location.href='https://classes.colorado.edu/'">Search classes</button>
           </div>
         </div>
@@ -125,10 +145,10 @@
         </div>
       </div>
 
-      <form action="/fileupload" method = "post" enctype="multipart/form-data">
-      <input type="file" id="1" name="filetoupload">
-      <input type="submit">
-  </form>
+      <form action="/fileupload" method="post" enctype="multipart/form-data">
+        <input type="file" id="1" name="filetoupload">
+        <input type="submit">
+      </form>
     </div>
   </div>
 
