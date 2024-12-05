@@ -1,7 +1,9 @@
 INSERT INTO users
   (username, email, password, name, GPA, hours)
 VALUES
-  ('boab','boab1234@colorado.edu', '1234', 'Boston', '4.00', 5);
+  ('boab','boab1234@colorado.edu', '1234', 'Boston', '4.00', 5)
+ON CONFLICT (username)
+DO UPDATE SET username = EXCLUDED.username;
 INSERT INTO classes
   (class_code, credit_hours, name, prereq)
 VALUES
@@ -46,7 +48,9 @@ VALUES
   ('CSCI3022', 3, 'Introduction to Data Science with Probability and Statistics', 'CSCI 2270 and MATH 2300 and CSCI 2824'),
   ('MATH3510', 3, 'Introduction to Probability and Statistics', 'MATH 2300 and MATH 2001'),
   ('ECEN3810', 3, 'Introduction to Probability Theory', 'APPM 2350 or MATH 2400'),
-  ('ECON3818', 4, 'Introduction to Statistics with Computer Applications', 'MATH 2300');
+  ('ECON3818', 4, 'Introduction to Statistics with Computer Applications', 'MATH 2300')
+ON CONFLICT (class_code) 
+DO UPDATE SET class_code = EXCLUDED.class_code;
   
 
 INSERT INTO users_to_classes
