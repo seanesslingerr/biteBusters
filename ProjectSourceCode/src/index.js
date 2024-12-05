@@ -88,7 +88,6 @@ function scraper(loc) {
         if (hours[2] === '.') {
           console.log("Shortening Hours")
           hours = line.slice(52,56);
-
         }
         console.log(hours);
       }
@@ -515,7 +514,7 @@ app.post('/fileupload', async (req, res) => {
 console.log('Server is running on port 3000');
 });*/
 
-module.exports = app.listen(3000);
+module.exports = app.listen(5432);
 
 app.get('/welcome', (req, res) => {
   res.json({status: 'success', message: 'Welcome!'});
