@@ -158,7 +158,7 @@ password: process.env.POSTGRES_PASSWORD, // the password of the user account
 };
 
 const db = pgp(dbConfig);
-
+console.log('Attempting to connect to database:', dbConfig);
 // test your database
 db.connect()
 .then(obj => {
@@ -180,12 +180,17 @@ app.set('views', path.join(__dirname, '/views'));
 app.use(bodyParser.json()); // specify the usage of JSON for parsing request body.
 
 // initialize session variables
+const pgSession = require('connect-pg-simple')(session);
+
 app.use(
-session({
-secret: process.env.SESSION_SECRET,
-saveUninitialized: false,
-resave: false,
-})
+  session({
+    store: new pgSession({
+      pool: db.$pool, // Reuse the pg-promise connection pool
+    }),
+    secret: process.env.SESSION_SECRET,
+    saveUninitialized: false,
+    resave: false,
+  })
 );
 
 app.use(
@@ -514,7 +519,7 @@ app.post('/fileupload', async (req, res) => {
 console.log('Server is running on port 3000');
 });*/
 
-module.exports = app.listen(5432);
+module.exports = app.listen(3000);
 
 app.get('/welcome', (req, res) => {
   res.json({status: 'success', message: 'Welcome!'});
