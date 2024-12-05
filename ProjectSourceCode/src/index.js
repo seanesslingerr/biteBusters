@@ -514,7 +514,10 @@ app.post('/fileupload', async (req, res) => {
 console.log('Server is running on port 3000');
 });*/
 
-//module.exports = app.listen(5432);
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
 
 app.get('/welcome', (req, res) => {
   res.json({status: 'success', message: 'Welcome!'});
