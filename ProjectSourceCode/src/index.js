@@ -157,6 +157,7 @@ database: process.env.POSTGRES_DB, // the database name
 user: process.env.POSTGRES_USER, // the user account to connect with
 password: process.env.POSTGRES_PASSWORD, // the password of the user account
 };
+const port = 5432;
 
 const db = pgp(dbConfig);
 
