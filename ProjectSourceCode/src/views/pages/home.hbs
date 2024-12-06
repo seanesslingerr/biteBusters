@@ -110,9 +110,13 @@
           <div class="card-header bg-custom text-white"></div>
           <div class="card-body">
             <p>Interested in classes next semester? Click on the link below to take a look!</p>
+            <p>Search for classes, add classes to your cart, drop classes and change your grade mode here. Classic registration is also still available.
+              CU’s Grade Replacement policy has been updated to benefit more students. Schedule an advising appointment to discuss or read more about retaking a course for grade replacement.
+            </p>
             <button class="btn btn-custom" onclick="window.location.href='https://classes.colorado.edu/'">Search classes</button>
           </div>
         </div>
+        
         
         <!-- CU Boulder Email Section -->
         <div class="card">
@@ -125,28 +129,27 @@
         </div>
       </div>    
 
-
-      <!-- Class Schedule Section -->
-      <div class="col-md-4">
-        <div class="card schedule-card">
-          <div class="card-header">General Academic Dates</div>
-          <div class="card-body">
-            <div class="text-center mb-3">
-            </div>
-            <button class="btn btn-custom" onclick="window.location.href='https://www.colorado.edu/registrar/students/calendar'">Academic Calender</button>
-            <button class="btn btn-custom" onclick="window.location.href='https://buffportal.colorado.edu/card/finals-schedule'">Finals Schedule</button>
-            <button class="btn btn-custom" onclick="window.location.href='https://buffportal.colorado.edu/card/enrollment-dates'">Enrollment Dates</button>
-          </div>
-        </div>
-      </div>
-
-      <form action="/fileupload" method="post" enctype="multipart/form-data">
-        <input type="file" id="1" name="filetoupload">
-        <input type="submit">
-      </form>
+<!-- Class Schedule Section -->
+<div class="col-md-4">
+  <div class="card schedule-card">
+    <div class="card-header">General Academic Dates</div>
+    <div class="card-body">
+      <div class="text-center mb-3"></div>
+      <p> These dates apply to full-semester CU Boulder Main Campus classes. For other classes and more dates visit the links below. </p>
+      <button class="btn btn-custom mb-3" onclick="window.location.href='https://www.colorado.edu/registrar/students/calendar'">Academic Calendar</button>
+      <button class="btn btn-custom mb-3" onclick="window.location.href='https://buffportal.colorado.edu/card/finals-schedule'">Finals Schedule</button>
+      <button class="btn btn-custom mb-3" onclick="window.location.href='https://buffportal.colorado.edu/card/enrollment-dates'">Enrollment Dates</button>
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<div style="display: flex; flex-direction: column; gap: 20px;">
+  <!-- Buff Info Help -->
+  <div class="card schedule-card">
+    <div class="card-header">Contact Buff Info Help</div>
+    <div class="card-body">
+      <ul>
+        <li>Phone number: 303-492-4636</li>
+        <li>Email: buffinfo@colorado.edu</li>
+        <li>Send CU a Question: <a href="https://www.colorado.edu/engineering-advising/academiccoaching" target="_blank">Academic Coaching Services</a></li>
+      </ul>
+    </div>
