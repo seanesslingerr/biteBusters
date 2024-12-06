@@ -502,7 +502,7 @@ app.post('/fileupload', async (req, res) => {
       const update = db.any("INSERT INTO users_to_classes (username, class_code, grade, semester, current) VALUES ($1, $2, $3, $4, $5);", [req.session.user.username, number[i], grade[i], semester[i], curr]);
       
     }
-    // Loosely inspired by: https://www.w3schools.com/nodejs/nodejs_uploadfiles.asp
+
     });
     res.redirect('/home');
 
@@ -516,9 +516,16 @@ console.log('Server is running on port 3000');
 });*/
 
 
-app.listen(port, () => {
+/*app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
-})
+})*/
+
+//Server Testing
+/*app.listen(3000, '0.0.0.0', () => {
+console.log('Server is running on port 3000');
+});*/
+
+module.exports = app.listen(3000);
 
 app.get('/welcome', (req, res) => {
   res.json({status: 'success', message: 'Welcome!'});
