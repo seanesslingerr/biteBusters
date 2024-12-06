@@ -102,6 +102,10 @@
             {{/each}}
           </div>
         </div>
+        <form action="/fileupload" method="post" enctype="multipart/form-data">
+        <input type="file" id="1" name="filetoupload">
+        <input type="submit">
+      </form>
       </div>
 
       <!-- Buff Portal Survey Section -->
@@ -140,6 +144,7 @@
       <button class="btn btn-custom mb-3" onclick="window.location.href='https://buffportal.colorado.edu/card/finals-schedule'">Finals Schedule</button>
       <button class="btn btn-custom mb-3" onclick="window.location.href='https://buffportal.colorado.edu/card/enrollment-dates'">Enrollment Dates</button>
     </div>
+    
   </div>
 
 <div style="display: flex; flex-direction: column; gap: 20px;">
