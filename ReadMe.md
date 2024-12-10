@@ -18,8 +18,8 @@ Project Source Code<br>
  &nbsp; &nbsp;Test<br>
   &nbsp; &nbsp;&nbsp; &nbsp;Test JS<br>
  &nbsp; &nbsp;Team Meeting Logs<br>
- &nbsp; &nbsp;Test<br>
- &nbsp; &nbsp; &nbsp; &nbsp;Test JS (deprecated)<br>
+&nbsp;Test<br>
+ &nbsp; &nbsp;Test JS (deprecated)<br>
 
 How To Run Locally:<br>
 
